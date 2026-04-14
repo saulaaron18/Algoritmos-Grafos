@@ -1,3 +1,4 @@
+package grafos;
 import java.util.Objects;
 
 public class Vertice {
@@ -15,6 +16,10 @@ public class Vertice {
 	
 	public void aumentoGrado() {
 		grado++;
+	}
+	
+	public void disminuirGrado() {
+		grado--;
 	}
 	
 	public int getGrado() {

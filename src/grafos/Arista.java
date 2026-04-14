@@ -1,3 +1,4 @@
+package grafos;
 import java.util.Objects;
 
 public class Arista {
