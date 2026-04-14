@@ -23,3 +23,8 @@ Por ello, tuve que recurrir a Cloude para que me sugiera alguna manera de poder 
 Tras leer un poco los métodos que más me interesaban y ver unos cuantos ejemplos, me dispuse a ver la manera de implementarlo.
 Logré mejorarlo más, pero no creí que fuera suficiente, por lo tanto, le pedí un poco más de ayuda a Cloude, dandome cuenta que 
 el get del HashMap tiene complejidad O(1), pudiendo resolver incluso mejor el problema de optimización de la matriz de adyaciencia.
+
+Al final del día, quería implementar métodos que eliminasen los vertices o aristas del ArrayList<>(). Y me he quedado con la pequeña duda
+de ¿Si elimino una arista de la lista, también eliminaré el de los vertices del que está instanciado? Y ¿Si elimino un vertice de la lista, la arista actualiza el vertice instanciado a null?
+
+Después de preguntarselo a Cloude, me recordó lo principal en java, y es que los objetos no se copian, se guardan referencias.
