@@ -6,23 +6,48 @@ public class Arista {
 	private Vertice v0; //Vertice inicial
 	private Vertice vf; //Vertice final
 	
+	/**
+	 * 
+	 * @param v0
+	 * @param vf
+	 * @param peso
+	 */
 	public Arista(Vertice v0, Vertice vf,int peso) {
 		this.peso = peso;
 		this.v0 = v0;
 		this.vf = vf;
-		this.v0.aumentoGrado();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getPeso() {
 		return peso;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Vertice getV0() {
 		return v0;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public Vertice getVf() {
 		return vf;
+	}
+	
+	/**
+	 * 
+	 * @param nombreVertice
+	 * @return
+	 */
+	public boolean contieneVertice(String nombreVertice) {
+		return v0.getNombre().equals(nombreVertice) || vf.getNombre().equals(nombreVertice);
 	}
 	
 	@Override

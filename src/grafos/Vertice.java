@@ -5,23 +5,41 @@ public class Vertice {
 	private String nombre="";
 	private int grado;
 	
+	/**
+	 * 
+	 * @param nombre
+	 */
 	public Vertice(String nombre) {
 		this.nombre = nombre;
 		this.grado = 0;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 	
+	/**
+	 * 
+	 */
 	public void aumentoGrado() {
 		grado++;
 	}
 	
+	/**
+	 * 
+	 */
 	public void disminuirGrado() {
 		grado--;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getGrado() {
 		return grado;
 	}
