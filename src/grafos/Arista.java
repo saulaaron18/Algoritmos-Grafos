@@ -2,15 +2,18 @@ package grafos;
 import java.util.Objects;
 
 public class Arista {
-	private int peso = 1;//Caso base
+	private int peso;	//Peso de la arista
 	private Vertice v0; //Vertice inicial
 	private Vertice vf; //Vertice final
 	
 	/**
+	 * PRE: v0 != null && vf != null
+	 * POST: Construye una arista conectado a dos vertices existentes y 
+	 * se le asigna un peso
 	 * 
-	 * @param v0
-	 * @param vf
-	 * @param peso
+	 * @param 	v0
+	 * @param 	vf
+	 * @param 	peso
 	 */
 	public Arista(Vertice v0, Vertice vf,int peso) {
 		this.peso = peso;
@@ -20,7 +23,7 @@ public class Arista {
 	
 	/**
 	 * 
-	 * @return
+	 * @return	peso
 	 */
 	public int getPeso() {
 		return peso;
@@ -28,14 +31,14 @@ public class Arista {
 	
 	/**
 	 * 
-	 * @return
+	 * @return	vertice de origen
 	 */
 	public Vertice getV0() {
 		return v0;
 	}
 	/**
 	 * 
-	 * @return
+	 * @return	vertice de destino
 	 */
 	public Vertice getVf() {
 		return vf;
@@ -44,7 +47,8 @@ public class Arista {
 	/**
 	 * 
 	 * @param nombreVertice
-	 * @return
+	 * @return	true si el nombre del vertice introducido coincide 
+	 * con uno de los vertices de la arista
 	 */
 	public boolean contieneVertice(String nombreVertice) {
 		return v0.getNombre().equals(nombreVertice) || vf.getNombre().equals(nombreVertice);

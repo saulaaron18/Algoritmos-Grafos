@@ -6,7 +6,8 @@ public class Vertice {
 	private int grado;
 	
 	/**
-	 * 
+	 * PRE: nombre != null && !nombre.isEmpty()
+	 * POST: Asigna nombre y el grado por defecto
 	 * @param nombre
 	 */
 	public Vertice(String nombre) {
@@ -16,21 +17,21 @@ public class Vertice {
 	
 	/**
 	 * 
-	 * @return
+	 * @return		nombre del vertice
 	 */
 	public String getNombre() {
 		return nombre;
 	}
 	
 	/**
-	 * 
+	 * Aumenta el grado del vertice
 	 */
 	public void aumentoGrado() {
 		grado++;
 	}
 	
 	/**
-	 * 
+	 * Disminuye el grado del vertice
 	 */
 	public void disminuirGrado() {
 		grado--;
@@ -38,7 +39,7 @@ public class Vertice {
 	
 	/**
 	 * 
-	 * @return
+	 * @return		grado del vertice
 	 */
 	public int getGrado() {
 		return grado;

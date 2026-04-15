@@ -28,3 +28,16 @@ Al final del día, quería implementar métodos que eliminasen los vertices o ar
 de ¿Si elimino una arista de la lista, también eliminaré el de los vertices del que está instanciado? Y ¿Si elimino un vertice de la lista, la arista actualiza el vertice instanciado a null?
 
 Después de preguntarselo a Cloude, me recordó lo principal en java, y es que los objetos no se copian, se guardan referencias.
+
+# DIA 3
+
+El día de hoy se ha basado en arreglar un pequeño bug con el aumento y dismunución de grado, el cual podria cambiar o eliminar, y que el sistema lo sepa con alguna pequeña operación. También me dediqué a comentar el código y a documentarlo. 
+
+Esto último, en la universidad nos dijeron que es bueno a la hora de generar un javaDoc de las clases con las que trabaje. Sin embargo, no hemos aprendido a documentarlo correctamente, por lo que me he ido guiando de un pequeño tutorial de youtube y de algunos códigos de apoyo que tienen el tipo de documentación que he insertado.
+
+Para conluir, los siguientes días tengo que pensar sobre:
+
+- El grado del vertice (si quitarlo como atributo)
+- El uso de un HashMap como atributo del grafo (tipo {Vertice : {Vertice destino 1,..., Vertice destino n}})
+- Aprender excepciones (aunque lo daremos pronto en clase, quiero saber como ir más allá que solo usar un try-catch)
+- Diseño del menú (al menos tener el diseño gráfico por consola)

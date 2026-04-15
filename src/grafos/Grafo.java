@@ -12,68 +12,60 @@ public class Grafo {
 	}
 
 	/**
+	 * PRE: No hay un vertice con el mismo nombre
+	 * POST: Crea y añade un vertice a la lista de vertices
 	 * 
-	 * @return 
+	 * @param 		nombreVertice
+	 * @return		true si se añadió correctamente
 	 */
-	public ArrayList<Vertice> getVertices() {
-		return vertices;
+	public boolean añadirVertice(String nombreVertice) {
+		return vertices.add(new Vertice(nombreVertice));
 	}
 
 	/**
+	 * PRE: Cierto
+	 * POST: Elimina las aristas conectadas al vertice y el vertice mismo 
 	 * 
-	 * @return
+	 * @param 		nombreVertice
+	 * @return		true si se añadio correctamente
 	 */
-	public ArrayList<Arista> getAristas() {
-		return aristas;
-	}
+	public boolean eliminarVertice(String nombreVertice) {
+		Vertice vertice = buscarVertice(nombreVertice);
 
-	/**
-	 * 
-	 * @param nombre
-	 */
-	public boolean añadirVertice(String nombre) {
-		return vertices.add(new Vertice(nombre));
-	}
-	
-	/**
-	 * 
-	 * @param nombre
-	 * @return
-	 */
-	public boolean eliminarVertice(String nombre) {
-		Vertice vertice = buscarVertice(nombre);
-		
 		//Comprobamos que no es nulo
 		if(vertice != null) {
-			
+
 			//Eliminamos las aristas que contengan ese vertice
 			for(Arista arista:aristas) {
-				if(arista.contieneVertice(nombre)) {
+				if(arista.contieneVertice(nombreVertice)) {
 					aristas.remove(arista);
 				}
 			}
-			
+
 			//Eliminamos el vertice de la lista de vertices
 			return vertices.remove(vertice); 
 		}							 
 
-
+		//Caso en el que el nombre no sea correcto, que sea null o vacio
 		return false;
 	}
 
 	/**
+	 * PRE: peso != 0
+	 * POST: Crea la arista conectada desde el vertice de origen al de destino
+	 * y aumenta el grado del vertice origen 
 	 * 
-	 * @param nombreOrigen
-	 * @param nombreDestino
-	 * @param peso
-	 * @return
+	 * @param 		nombreOrigen
+	 * @param 		nombreDestino
+	 * @param 		peso
+	 * @return		true si se añadio correctamente
 	 */
 	public boolean añadirArista(String nombreOrigen, String nombreDestino, int peso) {
 		//Buscamos los vertices de la lista vertices
 		Vertice origen = buscarVertice(nombreOrigen);
 		Vertice destino = buscarVertice(nombreDestino);
-		
-		//Comprobamos si no son nulos para realizar el aumento de grado y añadir la arista de la lista
+
+		//Comprobamos si no son nulos para realizar el aumento de grado y añadir la arista a la lista
 		if(origen != null && destino != null) {
 			origen.aumentoGrado();
 			return aristas.add(new Arista(origen, destino, peso));
@@ -83,6 +75,8 @@ public class Grafo {
 	}
 
 	/**
+	 * PRE: Cierto
+	 * POST: Elimina la arista
 	 * 
 	 * @param nombreOrigen
 	 * @param nombreDestino
@@ -105,7 +99,7 @@ public class Grafo {
 	public String toString() {
 		String encabezado=" ";
 		String grafo="";
-		
+
 		//Bucle para diseñar el encabezado
 		for(int i=0;i<vertices.size();i++) {
 			if(i==vertices.size()-1) {
@@ -115,10 +109,10 @@ public class Grafo {
 				encabezado += vertices.get(i).getNombre() + ", ";
 			}
 		}
-		
+
 		//Creación de la matriz de Adyaciencias
 		int[][] matriz = matrizAdyacencias();
-		
+
 		//Bucle para mostrar los vertices.toString() y los valores de matriz de adyaciencias
 		for(int i=0;i<vertices.size();i++) {
 			grafo += vertices.get(i) + " | ";
@@ -133,18 +127,18 @@ public class Grafo {
 
 	/**
 	 * 
-	 * @return
+	 * @return		matriz de adyaciencias por vertices
 	 */
 	private int[][]	matrizAdyacencias() {
 		int[][]	matriz = new int[vertices.size()][vertices.size()];
 		HashMap<Vertice, Integer> indicesVertices = new HashMap<Vertice, Integer>();
-		
+
 		//Rellenamos los keys con vertices de la lista y los valores de los indices,
 		//para acceder rapidamente con el hash
 		for(int i=0;i<vertices.size();i++) {
 			indicesVertices.put(vertices.get(i), i);
 		}
-		
+
 		//Accedemos a la lista aristas, obtenemos los vertices de origen y destino,
 		//comprobamos su indice por el HashMap con complejidad O(1), y en 
 		for(Arista arista:aristas) {
@@ -159,14 +153,16 @@ public class Grafo {
 	}
 
 	/**
+	 * PRE: nombreVertice != null && !nombreVertice.isEmpty()
+	 * POST: Devuelve el vertices
 	 * 
-	 * @param nombreVertice
-	 * @return
+	 * @param 		nombreVertice
+	 * @return		el vertice de busqueda
 	 */
 	private Vertice buscarVertice(String nombreVertice) {
 		Vertice verticeBusqueda = null;
-		
-		//Comprobación O(n), quizás modificable
+
+		//Comprobación O(n)
 		for(int i=0;i<vertices.size() && verticeBusqueda==null;i++) {
 			if(vertices.get(i).getNombre().equals(nombreVertice)) {
 				verticeBusqueda = vertices.get(i);
