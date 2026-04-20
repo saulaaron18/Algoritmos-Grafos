@@ -1,5 +1,5 @@
 package grafos;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -73,7 +73,7 @@ public class Grafo {
 		if(origen != null && destino != null) {
 			Arista aristaAñadir = new Arista(origen, destino, peso);
 			 
-			 return verticesAdyacentes.get(origen).add(aristaAñadir);s
+			 return verticesAdyacentes.get(origen).add(aristaAñadir);
 		}
 
 		return false;
@@ -107,27 +107,24 @@ public class Grafo {
 
 		//Bucle para diseñar el encabezado
 		for(Vertice verticesKey:verticesAdyacentes.keySet()) {
-			if(!verticesAdyacentes.keySet().iterator().hasNext()) {
-				encabezado += verticesKey.getNombre() + '\n';
-			}
-			else{
-				encabezado += verticesKey.getNombre() + ", ";
-			}
+				encabezado += verticesKey + " ";
 		}
 
 		//Creación de la matriz de Adyaciencias
 		int[][] matriz = matrizAdyacencias();
 
 		//Bucle para mostrar los vertices.toString() y los valores de matriz de adyaciencias
-		for(int i=0;i<numVertices;i++) {
-			grafo += vertices.get(i) + " | ";
-			for(int j=0;j<vertices.size();j++) {
+		int i=0;
+		for(Vertice verticesKey:verticesAdyacentes.keySet()) {
+			grafo += verticesKey + " | ";
+			for(int j=0;j<numVertices;j++) {
 				grafo += matriz[i][j] + " ";
 			}
 			grafo += '\n';
+			i++;
 		}
 
-		return encabezado+grafo;
+		return encabezado+'\n'+grafo;
 	}
 
 	/**
@@ -136,26 +133,24 @@ public class Grafo {
 	 */
 	private int[][]	matrizAdyacencias() {
 		int[][]	matriz = new int[verticesAdyacentes.size()][verticesAdyacentes.size()];
-		/*HashMap<Vertice, Integer> indicesVertices = new HashMap<Vertice, Integer>();
+		HashMap<Vertice, Integer> indicesVertices = new HashMap<Vertice, Integer>();
 
 		//Rellenamos los keys con vertices de la lista y los valores de los indices,
 		//para acceder rapidamente con el hash
-		for(int i=0;i<verticesAdyacentes.size();i++) {
-			indicesVertices.put(vertices.get(i), i);
+		int i=0;
+		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
+			indicesVertices.put(verticeKey, i++);
 		}
 
 		//Accedemos a la lista aristas, obtenemos los vertices de origen y destino,
 		//comprobamos su indice por el HashMap con complejidad O(1), y en 
-		for(Arista arista:aristas) {
-			int fila = indicesVertices.get(arista.getV0());
-			int columna = indicesVertices.get(arista.getVf());
+		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
+			HashSet<Arista> aristas = verticesAdyacentes.get(verticeKey);
+			for(Arista arista : aristas) {
+				int fila = indicesVertices.get(arista.getV0());
+				int columna = indicesVertices.get(arista.getVf());
 
-			matriz[fila][columna] = arista.getPeso();
-		}*/
-		
-		for(Vertice verticesKey:verticesAdyacentes.keySet()) {
-			if(!verticesAdyacentes.get(verticesKey).isEmpty()) {
-				
+				matriz[fila][columna] = arista.getPeso();
 			}
 		}
 

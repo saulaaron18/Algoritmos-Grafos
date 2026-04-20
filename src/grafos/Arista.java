@@ -65,7 +65,7 @@ public class Arista {
 	 * con uno de los vertices de la arista
 	 */
 	public boolean contieneVertice(String nombreVertice) {
-		return v0.getNombre().equals(nombreVertice) || vf.getNombre().equals(nombreVertice);
+		return v0.toString().equals(nombreVertice) || vf.toString().equals(nombreVertice);
 	}
 	
 	@Override
