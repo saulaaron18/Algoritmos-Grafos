@@ -22,6 +22,20 @@ public class Arista {
 	}
 	
 	/**
+	 * PRE: v0 != null && vf != null
+	 * POST: Construye una arista conectado a dos vertices existentes y 
+	 * se le asigna el peso por defecto 1
+	 * 
+	 * @param v0
+	 * @param vf
+	 */
+	public Arista(Vertice v0, Vertice vf) {
+		this.peso = 1;
+		this.v0 = v0;
+		this.vf = vf;
+	}
+	
+	/**
 	 * 
 	 * @return	peso
 	 */
