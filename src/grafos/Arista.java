@@ -22,6 +22,20 @@ public class Arista {
 	}
 	
 	/**
+	 * PRE: v0 != null && vf != null
+	 * POST: Construye una arista conectado a dos vertices existentes y 
+	 * se le asigna el peso por defecto 1
+	 * 
+	 * @param v0
+	 * @param vf
+	 */
+	public Arista(Vertice v0, Vertice vf) {
+		this.peso = 1;
+		this.v0 = v0;
+		this.vf = vf;
+	}
+	
+	/**
 	 * 
 	 * @return	peso
 	 */
@@ -51,12 +65,12 @@ public class Arista {
 	 * con uno de los vertices de la arista
 	 */
 	public boolean contieneVertice(String nombreVertice) {
-		return v0.getNombre().equals(nombreVertice) || vf.getNombre().equals(nombreVertice);
+		return v0.toString().equals(nombreVertice) || vf.toString().equals(nombreVertice);
 	}
 	
 	@Override
 	public String toString() {
-		return "[" + v0 + ", " + vf + "," + peso + "]";
+		return "(" + v0 + ", " + vf + "," + peso + ")";
 	}
 	
 	@Override

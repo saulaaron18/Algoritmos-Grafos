@@ -3,7 +3,6 @@ import java.util.Objects;
 
 public class Vertice {
 	private String nombre="";
-	private int grado;
 	
 	/**
 	 * PRE: nombre != null && !nombre.isEmpty()
@@ -12,42 +11,12 @@ public class Vertice {
 	 */
 	public Vertice(String nombre) {
 		this.nombre = nombre;
-		this.grado = 0;
 	}
 	
-	/**
-	 * 
-	 * @return		nombre del vertice
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-	
-	/**
-	 * Aumenta el grado del vertice
-	 */
-	public void aumentoGrado() {
-		grado++;
-	}
-	
-	/**
-	 * Disminuye el grado del vertice
-	 */
-	public void disminuirGrado() {
-		grado--;
-	}
-	
-	/**
-	 * 
-	 * @return		grado del vertice
-	 */
-	public int getGrado() {
-		return grado;
-	}
 	
 	@Override
 	public String toString() {
-		return "(" + nombre + ", " + grado + ")";
+		return nombre;
 	}
 	
 	@Override
