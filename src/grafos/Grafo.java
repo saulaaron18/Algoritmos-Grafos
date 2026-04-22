@@ -1,5 +1,6 @@
 package grafos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -98,6 +99,20 @@ public class Grafo {
 
 		return false;
 	}
+	
+	public String mostrarVertices() {
+		return verticesAdyacentes.keySet().toString();
+	}
+	
+	public String mostrarAristas() {
+		HashSet<Arista> aristas = new HashSet<Arista>();
+		
+		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
+			aristas.addAll(verticesAdyacentes.get(verticeKey));
+		}
+		
+		return aristas.toString();
+	}
 
 	@Override
 	public String toString() {
@@ -165,7 +180,7 @@ public class Grafo {
 	 * @param 		nombreVertice
 	 * @return		el vertice de busqueda
 	 */
-	private Vertice buscarVertice(String nombreVertice) {
+	public Vertice buscarVertice(String nombreVertice) {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
 		return (verticesAdyacentes.get(verticeBusqueda) == null) ? null : verticeBusqueda;

@@ -1,4 +1,4 @@
-# DIA 1
+# DÍA 1
 
 Durante el primer día, me dispuse a pensar en el objetivo y el tipo de proyecto que iba a realizar.
 Mi proposito con este proyecto y los siguientes es adelantarme o/y aprender más sobre la gestión de proyectos,
@@ -10,7 +10,7 @@ y en el Grafo ya añadir dos ArrayList de estas dos clases.
 
 Por último, añadí los getters en las clases Vertice y Arista, y los metodos añadirAristas() y añadirVertices().
 
-# DIA 2
+# DÍA 2
 
 Mayor avance en el código, además de conocer lo que es un HashMap<E>() en java, resultando ser para mi impresión,
 muy similar a los diccionarios de Python o los json de JavaScript.
@@ -29,7 +29,7 @@ de ¿Si elimino una arista de la lista, también eliminaré el de los vertices d
 
 Después de preguntarselo a Cloude, me recordó lo principal en java, y es que los objetos no se copian, se guardan referencias.
 
-# DIA 3
+# DÍA 3
 
 El día de hoy se ha basado en arreglar un pequeño bug con el aumento y dismunución de grado, el cual podria cambiar o eliminar, y que el sistema lo sepa con alguna pequeña operación. También me dediqué a comentar el código y a documentarlo. 
 
@@ -41,3 +41,7 @@ Para conluir, los siguientes días tengo que pensar sobre:
 - El uso de un HashMap como atributo del grafo (tipo {Vertice : {Vertice destino 1,..., Vertice destino n}})
 - Aprender excepciones (aunque lo daremos pronto en clase, quiero saber como ir más allá que solo usar un try-catch)
 - Diseño del menú (al menos tener el diseño gráfico por consola)
+
+# Resto de días (4,5,6 y 7)
+
+Por exámenes no he podido dedicarle mucho tiempo, pero he creado una nueva rama donde pueda probar ha utilizar únicamente HashMap y HashSet, que después de ver un video sencillo sobre estructura de datos, la elaboración de un grafo no es algo en el que tener que usar listas, pilas o colas.

@@ -70,7 +70,7 @@ public class Arista {
 	
 	@Override
 	public String toString() {
-		return "[" + v0 + ", " + vf + "," + peso + "]";
+		return "(" + v0 + ", " + vf + "," + peso + ")";
 	}
 	
 	@Override
