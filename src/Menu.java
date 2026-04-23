@@ -2,23 +2,22 @@ import java.util.Scanner;
 import grafos.*;
 
 public class Menu {
+	private static Scanner sc = new Scanner(System.in);
 
 	public static void menuDeSeleccion(Grafo grafo) {
-		try (Scanner sc = new Scanner(System.in)) {
-			char seleccion=' ';
+		char seleccion=' ';
 
-			do {
-				interfazGraficaDeSeleccion();
+		do {
+			interfazGraficaDeSeleccion();
 
-				System.out.println("Escriba el numero: ");
-				seleccion = sc.next().charAt(0);
+			System.out.println("Escriba el numero: ");
+			seleccion = sc.nextLine().charAt(0);
 
-				if(seleccion>='0' && seleccion<='3') {
-					accionSeleccionMenu(seleccion, grafo);
-				}
+			if(seleccion>='0' && seleccion<='3') {
+				accionSeleccionMenu(seleccion, grafo);
+			}
 
-			}while(seleccion<'0' || seleccion>'3');
-		}
+		}while(seleccion!='0');
 	}
 
 	private static void interfazGraficaDeSeleccion() {
@@ -53,19 +52,17 @@ public class Menu {
 	}
 
 	private static void menuVertice(Grafo grafo) {
-		try(Scanner sc = new Scanner(System.in)){
-			char seleccion = ' ';
-			do {
-				interfazGraficaMenuVertice();
+		char seleccion = ' ';
+		do {
+			interfazGraficaMenuVertice();
 
-				System.out.println("Escriba el numero: ");
-				seleccion = sc.next().charAt(0);
+			System.out.println("Escriba el numero: ");
+			seleccion = sc.nextLine().trim().charAt(0);
 
-				if(seleccion>='0' && seleccion<='4') {
-					accionSeleccionMenuVertice(seleccion, grafo);
-				}
-			}while(seleccion<'0' || seleccion>'4');
-		}
+			if(seleccion>='0' && seleccion<='4') {
+				accionSeleccionMenuVertice(seleccion, grafo);
+			}
+		}while(seleccion>='1' && seleccion<='4');
 	}
 
 	private static void interfazGraficaMenuVertice() {
@@ -80,101 +77,87 @@ public class Menu {
 
 	private static void accionSeleccionMenuVertice(char seleccion, Grafo grafo) {
 		switch(seleccion) {
+
 		case '0':
 			System.out.println("Saliendo al Menú.");
-			
-			menuDeSeleccion(grafo);
-			
-			break;
-			
-		case '1':
-			añadirVertice(grafo);
-			
-			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuVertice(grafo);
 
 			break;
-		
+
+		case '1':
+			añadirVertice(grafo);
+
+			System.out.println("Volviendo al menú del Vertice.");
+
+			break;
+
 		case '2':
 			eliminarVertice(grafo);
-			
+
 			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuVertice(grafo);
-			
+
 			break;
-		
+
 		case '3':
 			//TODO
-			
+
 			System.out.println("En desarrollo");
 			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuVertice(grafo);
-			
+
 			break;
-			
+
 		case '4':
 			System.out.println(grafo.mostrarVertices());
-			
+
 			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuVertice(grafo);
-			
+
 			break;
-		
+
 		default:
 			System.out.println("ERROR");
 		}
 	}
 
 	private static void añadirVertice(Grafo grafo) {
-		try(Scanner sc = new Scanner(System.in)){
-			String nombreVertice="";
-			boolean complete = false;
-			do {
-				System.out.print("Indique el nombre del vertice: ");
+		String nombreVertice="";
+		boolean complete = false;
+		do {
+			System.out.print("Indique el nombre del vertice: ");
 
-				nombreVertice = sc.nextLine();
+			nombreVertice = sc.nextLine().trim();
 
-				complete = grafo.añadirVertice(nombreVertice);
-			}while(!complete);
-		}
+			complete = grafo.añadirVertice(nombreVertice);
+		}while(!complete);
 	}
-	
+
 	private static void eliminarVertice(Grafo grafo) {
-		try(Scanner sc = new Scanner(System.in)){
-			String nombreVertice="";
-			
-			System.out.println(grafo.mostrarVertices());
-			
-			do {
-				System.out.print("Indique el nombre del vertice que desea eliminar: ");
+		String nombreVertice="";
+		boolean complete=false;
 
-				nombreVertice = sc.nextLine();
+		System.out.println(grafo.mostrarVertices());
 
-				grafo.eliminarVertice(nombreVertice);
-			}while(nombreVertice.isEmpty());
-		}
+		do {
+			System.out.print("Indique el nombre del vertice que desea eliminar: ");
+
+			nombreVertice = sc.nextLine().trim();
+
+			complete = grafo.eliminarVertice(nombreVertice);
+		}while(!complete);
 	}
-	
+
 	private static void menuArista(Grafo grafo) {
-		try(Scanner sc = new Scanner(System.in)){
-			char seleccion = ' ';
-			do {
-				interfazGraficaMenuArista();
+		char seleccion = ' ';
+		do {
+			interfazGraficaMenuArista();
 
-				System.out.println("Escriba el numero: ");
-				seleccion = sc.next().charAt(0);
+			System.out.println("Escriba el numero: ");
+			seleccion = sc.next().trim().charAt(0);
 
-				if(seleccion>='0' && seleccion<='4') {
-					accionSeleccionMenuArista(seleccion, grafo);
-				}
-			}while(seleccion<'0' || seleccion>'4');
-		}
+			if(seleccion>='0' && seleccion<='4') {
+				accionSeleccionMenuArista(seleccion, grafo);
+			}
+		}while(seleccion>='1' && seleccion<='4');
 	}
-	
+
 	private static void interfazGraficaMenuArista() {
 		System.out.println("¿Qué desea hacer?");
 		System.out.println("1. Añadir arista");
@@ -184,99 +167,85 @@ public class Menu {
 
 		System.out.println("\n0. Volver atras\n");
 	}
-	
+
 	private static void accionSeleccionMenuArista(char seleccion, Grafo grafo) {
 		switch(seleccion) {
 		case '0':
 			System.out.println("Saliendo al Menú.");
-			
-			menuDeSeleccion(grafo);
-			
+
 			break;
-			
+
 		case '1':
 			añadirArista(grafo);
 
 			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuArista(grafo);
 
 			break;
-		
+
 		case '2':
 			eliminarArista(grafo);
-			
+
 			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuArista(grafo);
-			
+
 			break;
-		
+
 		case '3':
 			//TODO
-			
+
 			System.out.println("En desarrollo");
 			System.out.println("Volviendo al menú del Vertice.");
 			
-			menuArista(grafo);
-			
 			break;
-			
+
 		case '4':
 			System.out.println(grafo.mostrarAristas());
-			
+
 			System.out.println("Volviendo al menú del Vertice.");
-			
-			menuArista(grafo);
-			
+
 			break;
-		
+
 		default:
 			System.out.println("ERROR");
 		}
 	}
-	
+
 	private static void añadirArista(Grafo grafo) {
-		try(Scanner sc = new Scanner(System.in)){
-			boolean complete = false;
-			String nombreVerticeOrigen="";
-			String nombreVerticeDestino="";
-			int peso=1;
-			do {
-				System.out.print("Indique el nombre del vertice origen: ");
+		boolean complete = false;
+		String nombreVerticeOrigen="";
+		String nombreVerticeDestino="";
+		int peso=1;
+		do {
+			System.out.print("Indique el nombre del vertice origen: ");
 
-				nombreVerticeOrigen = sc.nextLine();
+			nombreVerticeOrigen = sc.nextLine().trim();
 
-				System.out.print("Indique el nombre del vertice destino: ");
-				
-				nombreVerticeDestino = sc.nextLine();
-				
-				System.out.print("Indique el peso (No puede ser 0): ");
-				
-				peso = sc.nextInt();
-				
-				complete = grafo.añadirArista(nombreVerticeOrigen, nombreVerticeDestino, peso);
-			}while(!complete);
-		}
+			System.out.print("Indique el nombre del vertice destino: ");
+
+			nombreVerticeDestino = sc.nextLine().trim();
+
+			System.out.print("Indique el peso (No puede ser 0): ");
+
+			peso = sc.nextInt();
+
+			complete = grafo.añadirArista(nombreVerticeOrigen, nombreVerticeDestino, peso);
+		}while(!complete);
 	}
-	
+
 	private static void eliminarArista(Grafo grafo) {
-		try(Scanner sc = new Scanner(System.in)){
-			boolean complete = false;
-			String nombreVerticeOrigen="";
-			String nombreVerticeDestino="";
-			do {
-				System.out.print("Indique el nombre del vertice origen de la arista a eliminar: ");
+		boolean complete = false;
+		String nombreVerticeOrigen="";
+		String nombreVerticeDestino="";
+		do {
+			System.out.print("Indique el nombre del vertice origen de la arista a eliminar: ");
 
-				nombreVerticeOrigen = sc.nextLine();
+			nombreVerticeOrigen = sc.nextLine().trim();
 
-				System.out.print("Indique el nombre del vertice destino de la arista a eliminar: ");
-				
-				nombreVerticeDestino = sc.nextLine();
-				
-				complete = grafo.eliminarArista(nombreVerticeOrigen, nombreVerticeDestino);
-			}while(!complete);
-		}
+			System.out.print("Indique el nombre del vertice destino de la arista a eliminar: ");
+
+			nombreVerticeDestino = sc.nextLine().trim();
+
+			complete = grafo.eliminarArista(nombreVerticeOrigen, nombreVerticeDestino);
+		}while(!complete);
 	}
 
 	public static void main(String[] args) {

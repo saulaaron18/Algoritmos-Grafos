@@ -1,6 +1,5 @@
 package grafos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -94,7 +93,7 @@ public class Grafo {
 
 		//Comprobamos si no son nulos para realizar la dismiución de grado y eliminar la arista de la lista
 		if(origen != null && destino != null) {
-			return verticesAdyacentes.get(origen).remove(new Arista(origen, destino, 1)); //Solamente se encuentra vivo en la lista
+			return verticesAdyacentes.get(origen).remove(new Arista(origen, destino)); //Solamente se encuentra vivo en la lista
 		}
 
 		return false;
@@ -184,5 +183,9 @@ public class Grafo {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
 		return (verticesAdyacentes.get(verticeBusqueda) == null) ? null : verticeBusqueda;
+	}
+	
+	public HashMap<Vertice, HashSet<Arista>> getVerticesAdyacentes() {
+		return verticesAdyacentes;
 	}
 }
