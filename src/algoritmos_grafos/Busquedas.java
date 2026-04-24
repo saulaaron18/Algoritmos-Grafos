@@ -16,17 +16,35 @@ public abstract class Busquedas {
 	 */
 	public static Grafo busquedaEnProfundidad(String nombreRaiz, Grafo grafo) {
 		Grafo arbolEnProfundidad = new Grafo();
-		Vertice vertice = new Vertice(nombreRaiz);
+		ArrayList<Vertice> verticesEncontrados = new ArrayList<Vertice>();
+		HashSet<Arista> aristasEncontradas = new HashSet<Arista>();
 		
-		ArrayList<Vertice> busqueda = new ArrayList<Vertice>();
+		arbolEnProfundidad.añadirVertice(nombreRaiz);
+		verticesEncontrados.add(arbolEnProfundidad.buscarVertice(nombreRaiz));
 		
-		busqueda.add(vertice);
-		while(!busqueda.isEmpty()) {
-			HashSet<Arista> aristas = grafo.getVerticesAdyacentes().get(vertice);
-			if(aristas.isEmpty()) {
-				busqueda.remove(vertice);
+		while(verticesEncontrados.size()>0) {
+			HashSet<Arista> aristasBusqueda = (HashSet<Arista>) grafo.getVerticesAdyacentes().
+					get(verticesEncontrados.get(verticesEncontrados.size())).clone();
+			
+			aristasBusqueda.removeAll(aristasEncontradas);
+			
+			if(aristasBusqueda.isEmpty()) {
+				verticesEncontrados.remove(verticesEncontrados.size()-1);
 			}
 			
+			else {
+				Arista arista = (Arista) aristasBusqueda.toArray()[0];
+				Vertice vertice = arista.getVf();
+				
+				aristasEncontradas.add(arista);
+				verticesEncontrados.add(vertice);
+				
+				arbolEnProfundidad.añadirVertice(vertice.toString());
+				arbolEnProfundidad.añadirArista(
+						verticesEncontrados.get(verticesEncontrados.size()-2).toString(), 
+						vertice.toString(), 
+						arista.getPeso());
+			}
 		}
 		
 		return arbolEnProfundidad;

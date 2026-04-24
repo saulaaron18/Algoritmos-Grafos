@@ -19,3 +19,12 @@ El día de hoy quería empezar con los algoritmos, pero me he quedado con la dud
 Por ahora, creo que lo mejor es realizar los algoritmos de búsqueda en profundidad y en anchura, aunque resulta un poco más complicado de lo que parece, por lo que lo mejor es que divida el problema, empiece con ciertas características como el de iterar y observar las adyaciencias. 
 
 En resumen, voy a tener que plantear los algoritmos en papel, ya que así lo visualizo mejor y consultar a Claude mis puntos de vista sobre qué tipo de modulos, clases y métodos debería de implementar para que todo este lo mejor estructurado posible.
+
+# DÍA 5
+He pasado el tiempo en el tren y en mi casa mirando cómo poder implementar la busqueda en profundidad, y me ha parecido muy interesante intentar resolverlo.
+
+Los principales problemas que tuve fueron:
+
+- La implementación del bucle y su parada (¿Paro si todos los vertices por los que he pasado no tienen arista adyacente? ¿Paro si llego al nivel -1, resultado de que el vertice de n=0 no tenga más aristas?) 
+
+- El retroceso y el recordar por los vertices y aristas por los que he pasado.
