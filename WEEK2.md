@@ -28,3 +28,6 @@ Los principales problemas que tuve fueron:
 - La implementación del bucle y su parada (¿Paro si todos los vertices por los que he pasado no tienen arista adyacente? ¿Paro si llego al nivel -1, resultado de que el vertice de n=0 no tenga más aristas?) 
 
 - El retroceso y el recordar por los vertices y aristas por los que he pasado.
+
+# DÍA 6 y 7
+La verdad no he realizado mucho deboido a que tenía trabajos urgentes.

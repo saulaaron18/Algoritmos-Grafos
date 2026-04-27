@@ -1,12 +1,13 @@
 package algoritmos_grafos;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 
 import grafos.*;
 
 public abstract class Busquedas {
-	
+
 	/**
 	 * PRE: la raiz pertenece al grafo
 	 * 
@@ -16,37 +17,44 @@ public abstract class Busquedas {
 	 */
 	public static Grafo busquedaEnProfundidad(String nombreRaiz, Grafo grafo) {
 		Grafo arbolEnProfundidad = new Grafo();
-		ArrayList<Vertice> verticesEncontrados = new ArrayList<Vertice>();
-		HashSet<Arista> aristasEncontradas = new HashSet<Arista>();
-		
+
+		//Cola de vertices encontrados durante el algoritmo y
+		//HashSet de vertices visitados
+		Deque<String> verticesCola = new ArrayDeque<String>();
+		HashSet<String> verticesVisitados = new HashSet<String>();
+
+		//Estado inicial, con Arbol trivial, la cola de busqueda con raíz y 
+		//HashSet con raíz
 		arbolEnProfundidad.añadirVertice(nombreRaiz);
-		verticesEncontrados.add(arbolEnProfundidad.buscarVertice(nombreRaiz));
-		
-		while(verticesEncontrados.size()>0) {
-			HashSet<Arista> aristasBusqueda = (HashSet<Arista>) grafo.getVerticesAdyacentes().
-					get(verticesEncontrados.get(verticesEncontrados.size())).clone();
+		verticesCola.push(nombreRaiz);
+		verticesVisitados.add(nombreRaiz);
+
+		while(!verticesCola.isEmpty()) {
+			boolean encontrado = false;
+			HashSet<Arista> aristas = grafo.getAristas(verticesCola.peek());
 			
-			aristasBusqueda.removeAll(aristasEncontradas);
+			for(Arista arista:aristas) {
+				String verticeDestino = arista.getVf().toString();
+				
+				if(!verticesVisitados.contains(verticeDestino)) {
+					arbolEnProfundidad.añadirVertice(verticeDestino);
+					arbolEnProfundidad.añadirArista(verticesCola.peek(), verticeDestino, arista.getPeso());
+					
+					verticesCola.push(verticeDestino);
+					verticesVisitados.add(verticeDestino);
+					
+					encontrado = true;
+					
+					break; //Salimos del bucle for()
+				}
+			}//Fin bucle for()
 			
-			if(aristasBusqueda.isEmpty()) {
-				verticesEncontrados.remove(verticesEncontrados.size()-1);
+			if(!encontrado) {
+				verticesCola.pop();
 			}
 			
-			else {
-				Arista arista = (Arista) aristasBusqueda.toArray()[0];
-				Vertice vertice = arista.getVf();
-				
-				aristasEncontradas.add(arista);
-				verticesEncontrados.add(vertice);
-				
-				arbolEnProfundidad.añadirVertice(vertice.toString());
-				arbolEnProfundidad.añadirArista(
-						verticesEncontrados.get(verticesEncontrados.size()-2).toString(), 
-						vertice.toString(), 
-						arista.getPeso());
-			}
 		}
-		
+
 		return arbolEnProfundidad;
 	}
 }

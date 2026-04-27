@@ -9,6 +9,8 @@ public class Grafo {
 	public Grafo() {
 		this.verticesAdyacentes = new HashMap<Vertice, HashSet<Arista>>();
 	}
+	
+	
 
 	/**
 	 * PRE: No hay un vertice null y no es vacio
@@ -182,10 +184,18 @@ public class Grafo {
 	public Vertice buscarVertice(String nombreVertice) {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
-		return (verticesAdyacentes.get(verticeBusqueda) == null) ? null : verticeBusqueda;
+		return (verticesAdyacentes.containsKey(verticeBusqueda)) ? null : verticeBusqueda;
 	}
 	
 	public HashMap<Vertice, HashSet<Arista>> getVerticesAdyacentes() {
 		return verticesAdyacentes;
+	}
+	
+	public HashSet<Arista> getAristas(String nombreVertice){
+		return verticesAdyacentes.get(buscarVertice(nombreVertice));
+	}
+	
+	public HashSet<Vertice> getVertices(){
+		return (HashSet<Vertice>) verticesAdyacentes.keySet();
 	}
 }
