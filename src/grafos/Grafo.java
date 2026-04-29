@@ -195,7 +195,31 @@ public class Grafo {
 		return verticesAdyacentes.get(buscarVertice(nombreVertice));
 	}
 	
+	/**
+	 * PRE: cierto
+	 * POST: devuelve todas las aristas del grafo
+	 * 
+	 * @return copia de todas las aristas del grafo. Tienen diferente referencia
+	 */
+	public HashSet<Arista> getAristas(){
+		HashSet<Arista> aristasTotales = new HashSet<Arista>();
+		
+		for(Vertice verticeKey:getVertices()) {
+			aristasTotales.addAll(getAristas(verticeKey.getNombre()));
+		}
+		
+		return aristasTotales;
+	}
+	
 	public HashSet<Vertice> getVertices(){
 		return (HashSet<Vertice>) verticesAdyacentes.keySet();
+	}
+	
+	public int numOfVertices() {
+		return verticesAdyacentes.size();
+	}
+	
+	public int numOfAristas() {
+		return getAristas().size();
 	}
 }

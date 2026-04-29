@@ -13,6 +13,10 @@ public class Vertice {
 		this.nombre = nombre;
 	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+	
 	
 	@Override
 	public String toString() {
