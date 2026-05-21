@@ -70,18 +70,19 @@ public class Arista {
 	
 	@Override
 	public String toString() {
-		return "(" + v0 + ", " + vf + "," + peso + ")";
+		return "(" + v0 + ", " + vf + ", " + peso + ")";
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(!Arista.class.isInstance(obj)) {
+		if(!(obj instanceof Arista)) {
 			return false;
 		}
 		
 		Arista arista = (Arista) obj;
 		
-		return v0.equals(arista.v0) && vf.equals(arista.vf);
+		return (v0.equals(arista.v0) && vf.equals(arista.vf)) ||
+				(v0.equals(arista.vf) && vf.equals(arista.v0));
 	}
 	
 	@Override

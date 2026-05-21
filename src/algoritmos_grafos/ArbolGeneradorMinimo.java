@@ -4,19 +4,16 @@ import grafos.*;
 
 public abstract class ArbolGeneradorMinimo {
 	
-	public static Grafo Boruvka(Grafo grafo) {
-		Grafo arbolGeneradorMinimo = new Grafo();
+	public static Digrafo Boruvka(Digrafo grafo) {
+		Digrafo arbolGeneradorMinimo = new Digrafo();
 		
-		for(Vertice vertice:grafo.getVertices()) {
-			arbolGeneradorMinimo.añadirVertice(vertice.getNombre());
+		for(Vertice vertice:grafo.getVertexs()) {
+			arbolGeneradorMinimo.addVertex(vertice.getNombre());
 		}
 		
 		//Arbol -> |A| = |V| - 1
-		int n = arbolGeneradorMinimo.numOfVertices();
+		//n-1 iteraciones 
 		
-		for(int i=0;i<n;i++) {
-			
-		}
 		
 		return arbolGeneradorMinimo;
 	}

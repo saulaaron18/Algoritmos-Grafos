@@ -3,14 +3,14 @@ package grafos;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Grafo {
+public class Digrafo implements IGrafo{
 	private HashMap<Vertice, HashSet<Arista>> verticesAdyacentes;
 
-	public Grafo() {
+	public Digrafo() {
 		this.verticesAdyacentes = new HashMap<Vertice, HashSet<Arista>>();
 	}
-	
-	
+
+
 
 	/**
 	 * PRE: No hay un vertice null y no es vacio
@@ -19,7 +19,7 @@ public class Grafo {
 	 * @param 		nombreVertice
 	 * @return		true si se añadió correctamente
 	 */
-	public boolean añadirVertice(String nombreVertice) {
+	public boolean addVertex(String nombreVertice) {
 		verticesAdyacentes.put(new Vertice(nombreVertice), new HashSet<Arista>());
 		return true;
 	}
@@ -31,24 +31,24 @@ public class Grafo {
 	 * @param 		nombreVertice
 	 * @return		true si se añadio correctamente
 	 */
-	public boolean eliminarVertice(String nombreVertice) {
-		Vertice verticeEliminacion = buscarVertice(nombreVertice);
-		
+	public boolean removeVertex(String nombreVertice) {
+		Vertice verticeEliminacion = getVertex(nombreVertice);
+
 		//Comprobamos que no es nulo
 		if(verticeEliminacion != null) {
-			
-			
+
+
 			//Eliminamos las aristas que contengan ese vertice
 			for(Vertice verticeKey:verticesAdyacentes.keySet()) {
 				HashSet<Arista> aristas = verticesAdyacentes.get(verticeKey);
-				Arista aristaBusqueda = new Arista(verticeKey, verticeEliminacion, 1);
-				
+				Arista aristaBusqueda = new Arista(verticeKey, verticeEliminacion);
+
 				//ELiminamos la arista que contenga el vertice de eliminacion
 				aristas.remove(aristaBusqueda);
 			}
 			//Eliminamos el vertice de la lista de vertices
 			verticesAdyacentes.remove(verticeEliminacion);
-			
+
 			return true;
 		}							 
 
@@ -66,16 +66,16 @@ public class Grafo {
 	 * @param 		peso
 	 * @return		true si se añadio correctamente
 	 */
-	public boolean añadirArista(String nombreOrigen, String nombreDestino, int peso) {
+	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso) {
 		//Buscamos los vertices de la lista vertices
-		Vertice origen = buscarVertice(nombreOrigen);
-		Vertice destino = buscarVertice(nombreDestino);
+		Vertice origen = getVertex(nombreOrigen);
+		Vertice destino = getVertex(nombreDestino);
 
 		//Comprobamos si no son nulos para añadir la arista a la lista
 		if(origen != null && destino != null) {
 			Arista aristaAñadir = new Arista(origen, destino, peso);
-			 
-			 return verticesAdyacentes.get(origen).add(aristaAñadir);
+
+			return verticesAdyacentes.get(origen).add(aristaAñadir);
 		}
 
 		return false;
@@ -89,29 +89,29 @@ public class Grafo {
 	 * @param nombreDestino
 	 * @return
 	 */
-	public boolean eliminarArista(String nombreOrigen, String nombreDestino) {
-		Vertice origen = buscarVertice(nombreOrigen);
-		Vertice destino = buscarVertice(nombreDestino);
+	public boolean removeEdge(String nombreOrigen, String nombreDestino) {
+		Vertice origen = getVertex(nombreOrigen);
+		Vertice destino = getVertex(nombreDestino);
 
-		//Comprobamos si no son nulos para realizar la dismiución de grado y eliminar la arista de la lista
+		//Comprobamos si no son nulos para realizar la disminución de grado y eliminar la arista de la lista
 		if(origen != null && destino != null) {
 			return verticesAdyacentes.get(origen).remove(new Arista(origen, destino)); //Solamente se encuentra vivo en la lista
 		}
 
 		return false;
 	}
-	
-	public String mostrarVertices() {
+
+	public String showVertexs() {
 		return verticesAdyacentes.keySet().toString();
 	}
-	
-	public String mostrarAristas() {
+
+	public String showEdges() {
 		HashSet<Arista> aristas = new HashSet<Arista>();
-		
+
 		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
 			aristas.addAll(verticesAdyacentes.get(verticeKey));
 		}
-		
+
 		return aristas.toString();
 	}
 
@@ -123,7 +123,7 @@ public class Grafo {
 
 		//Bucle para diseñar el encabezado
 		for(Vertice verticesKey:verticesAdyacentes.keySet()) {
-				encabezado += verticesKey + " ";
+			encabezado += verticesKey + " ";
 		}
 
 		//Creación de la matriz de Adyaciencias
@@ -181,45 +181,68 @@ public class Grafo {
 	 * @param 		nombreVertice
 	 * @return		el vertice de busqueda
 	 */
-	public Vertice buscarVertice(String nombreVertice) {
+	public Vertice getVertex(String nombreVertice) {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
-		return (verticesAdyacentes.containsKey(verticeBusqueda)) ? null : verticeBusqueda;
+		return (verticesAdyacentes.containsKey(verticeBusqueda)) ? verticeBusqueda : null;
 	}
-	
-	public HashMap<Vertice, HashSet<Arista>> getVerticesAdyacentes() {
+
+	public HashMap<Vertice, HashSet<Arista>> getAtribute() {
 		return verticesAdyacentes;
 	}
-	
-	public HashSet<Arista> getAristas(String nombreVertice){
-		return verticesAdyacentes.get(buscarVertice(nombreVertice));
+
+	public HashSet<Arista> getEdgesOfVertex(String nombreVertice){
+		return verticesAdyacentes.get(getVertex(nombreVertice));
 	}
-	
+
+	public Arista getEdge(String nombreOrigen, String nombreDestino) {
+		Arista aristaBusqueda = null;
+		Vertice origen = getVertex(nombreOrigen);
+		Vertice destino = getVertex(nombreDestino);
+
+		if(origen != null && destino != null) {
+			aristaBusqueda = new Arista(origen,destino);
+		}
+
+		return aristaBusqueda;
+	}
+
 	/**
 	 * PRE: cierto
 	 * POST: devuelve todas las aristas del grafo
 	 * 
-	 * @return copia de todas las aristas del grafo. Tienen diferente referencia
+	 * @return referencia de todas las aristas del grafo
 	 */
-	public HashSet<Arista> getAristas(){
+	public HashSet<Arista> getEdges(){
 		HashSet<Arista> aristasTotales = new HashSet<Arista>();
-		
-		for(Vertice verticeKey:getVertices()) {
-			aristasTotales.addAll(getAristas(verticeKey.getNombre()));
+
+		for(Vertice verticeKey:getVertexs()) {
+			aristasTotales.addAll(getEdgesOfVertex(verticeKey.getNombre()));
 		}
-		
+
 		return aristasTotales;
 	}
-	
-	public HashSet<Vertice> getVertices(){
-		return (HashSet<Vertice>) verticesAdyacentes.keySet();
+
+	public HashSet<Vertice> getVertexs(){
+		return new HashSet<Vertice>(verticesAdyacentes.keySet());
 	}
-	
-	public int numOfVertices() {
+
+	public int numOfVertexs() {
 		return verticesAdyacentes.size();
 	}
-	
-	public int numOfAristas() {
-		return getAristas().size();
+
+	public int numOfEdges() {
+		return getEdges().size();
+	}
+
+	public boolean isSimpleGraph() {
+		boolean encontrado = false;
+
+		for(Vertice verticeKey:getVertexs()) {
+			encontrado = verticesAdyacentes.get(verticeKey).
+					contains(new Arista(verticeKey,verticeKey));
+		}
+
+		return !encontrado;
 	}
 }

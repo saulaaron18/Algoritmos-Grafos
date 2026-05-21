@@ -10,7 +10,7 @@ public class Vertice {
 	 * @param nombre
 	 */
 	public Vertice(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 	
 	public String getNombre() {
@@ -25,7 +25,7 @@ public class Vertice {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(!getClass().isInstance(obj)) {
+		if(!(obj instanceof Vertice)) {
 			return false;
 		}
 		
