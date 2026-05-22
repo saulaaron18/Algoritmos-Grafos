@@ -21,7 +21,7 @@ public class TestMainDigrafo {
 		System.out.println(grafo.showEdges());
 		System.out.println(grafo.showEdges());
 		
-		grafo.removeEdge("A", "B");
+		grafo.removeVertex("A");
 		
 		System.out.println(grafo);
 		System.out.println(grafo.showEdges());

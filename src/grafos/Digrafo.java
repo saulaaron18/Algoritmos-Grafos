@@ -3,82 +3,93 @@ package grafos;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Digrafo implements IGrafo{
-	private HashMap<Vertice, HashSet<Arista>> verticesAdyacentes;
+public class Digrafo implements IGrafo {
+	private final HashSet<Vertice> vertices;
+	private final HashSet<Arista> aristas;
+	private final HashMap<Vertice, HashSet<Arista>> verticesAdyacentes;
 
 	public Digrafo() {
-		this.verticesAdyacentes = new HashMap<Vertice, HashSet<Arista>>();
+		this.verticesAdyacentes = new HashMap<>();
+		this.vertices = new HashSet<>();
+		this.aristas = new HashSet<>();
 	}
-
-
 
 	/**
 	 * PRE: No hay un vertice null y no es vacio
 	 * POST: Crea y añade un vertice a la lista de vertices
 	 * 
-	 * @param 		nombreVertice
-	 * @return		true si se añadió correctamente
+	 * @param nombreVertice
+	 * @return true si se añadió correctamente
 	 */
+	@Override
 	public boolean addVertex(String nombreVertice) {
-		verticesAdyacentes.put(new Vertice(nombreVertice), new HashSet<Arista>());
-		return true;
+		Vertice verticeNuevo = new Vertice(nombreVertice);
+
+		verticesAdyacentes.put(verticeNuevo, new HashSet<>());
+		return vertices.add(verticeNuevo);
 	}
 
 	/**
-	 * PRE: Cierto
-	 * POST: Elimina las aristas conectadas al vertice y el vertice mismo 
+	 * PRE: nombreVertice != null
+	 * POST: Elimina las aristas conectadas al vertice y el vertice mismo
 	 * 
-	 * @param 		nombreVertice
-	 * @return		true si se añadio correctamente
+	 * @param nombreVertice
+	 * @return true si se añadio correctamente
 	 */
+	@Override
 	public boolean removeVertex(String nombreVertice) {
 		Vertice verticeEliminacion = getVertex(nombreVertice);
 
-		//Comprobamos que no es nulo
-		if(verticeEliminacion != null) {
+		// Comprobamos que no es nulo
+		if (verticeEliminacion == null) {
+			return false;
+		}
 
+		// Eliminamos las aristas que contengan ese vertice
 
-			//Eliminamos las aristas que contengan ese vertice
-			for(Vertice verticeKey:verticesAdyacentes.keySet()) {
-				HashSet<Arista> aristas = verticesAdyacentes.get(verticeKey);
-				Arista aristaBusqueda = new Arista(verticeKey, verticeEliminacion);
+		// En aristas
+		aristas.removeIf(arista -> arista.contieneVertice(nombreVertice));
 
-				//ELiminamos la arista que contenga el vertice de eliminacion
-				aristas.remove(aristaBusqueda);
-			}
-			//Eliminamos el vertice de la lista de vertices
-			verticesAdyacentes.remove(verticeEliminacion);
+		// En verticesAdyacentes
+		for (Vertice verticeKey : verticesAdyacentes.keySet()) {
+			Arista arista = new Arista(verticeKey, verticeEliminacion);
 
-			return true;
-		}							 
+			verticesAdyacentes.get(verticeKey).remove(arista);
+		}
 
-		//Caso en el que el nombre no sea correcto, que sea null o vacio
-		return false;
+		// Eliminamos el vertice de la lista de vertices
+		verticesAdyacentes.remove(verticeEliminacion);
+
+		return true;
+
 	}
 
 	/**
 	 * PRE: peso != 0
 	 * POST: Crea la arista conectada desde el vertice de origen al de destino
-	 * y aumenta el grado del vertice origen 
+	 * y aumenta el grado del vertice origen
 	 * 
-	 * @param 		nombreOrigen
-	 * @param 		nombreDestino
-	 * @param 		peso
-	 * @return		true si se añadio correctamente
+	 * @param nombreOrigen
+	 * @param nombreDestino
+	 * @param peso
+	 * @return true si se añadio correctamente
 	 */
+	@Override
 	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso) {
-		//Buscamos los vertices de la lista vertices
+		// Buscamos los vertices de la lista vertices
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);
 
-		//Comprobamos si no son nulos para añadir la arista a la lista
-		if(origen != null && destino != null) {
-			Arista aristaAñadir = new Arista(origen, destino, peso);
-
-			return verticesAdyacentes.get(origen).add(aristaAñadir);
+		// Comprobamos si no son nulos para añadir la arista a la lista
+		if (origen == null || destino == null) {
+			return false;
 		}
 
-		return false;
+		Arista aristaNueva = new Arista(origen, destino, peso);
+
+		verticesAdyacentes.get(origen).add(aristaNueva);
+		return aristas.add(aristaNueva);
+
 	}
 
 	/**
@@ -87,89 +98,86 @@ public class Digrafo implements IGrafo{
 	 * 
 	 * @param nombreOrigen
 	 * @param nombreDestino
-	 * @return
+	 * @return true si se ha removido correctamente
 	 */
+	@Override
 	public boolean removeEdge(String nombreOrigen, String nombreDestino) {
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);
 
-		//Comprobamos si no son nulos para realizar la disminución de grado y eliminar la arista de la lista
-		if(origen != null && destino != null) {
-			return verticesAdyacentes.get(origen).remove(new Arista(origen, destino)); //Solamente se encuentra vivo en la lista
+		// Comprobamos si son nulos
+		if (origen == null || destino == null) {
+			return false;
 		}
+		Arista aristaEliminar = new Arista(origen, destino);
 
-		return false;
+		verticesAdyacentes.get(origen).remove(aristaEliminar); // Eliminamos de verticesAdyacentes
+
+		return aristas.remove(aristaEliminar); // Eliminamos de aristas
 	}
 
+	@Override
 	public String showVertexs() {
-		return verticesAdyacentes.keySet().toString();
+		return this.vertices.toString();
 	}
 
+	@Override
 	public String showEdges() {
-		HashSet<Arista> aristas = new HashSet<Arista>();
-
-		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
-			aristas.addAll(verticesAdyacentes.get(verticeKey));
-		}
-
-		return aristas.toString();
+		return this.aristas.toString();
 	}
 
 	@Override
 	public String toString() {
-		String encabezado=" ";
-		String grafo="";
+		String encabezado = " ";
+		String grafo = "";
 		int numVertices = verticesAdyacentes.size();
 
-		//Bucle para diseñar el encabezado
-		for(Vertice verticesKey:verticesAdyacentes.keySet()) {
+		// Bucle para diseñar el encabezado
+		for (Vertice verticesKey : verticesAdyacentes.keySet()) {
 			encabezado += verticesKey + " ";
 		}
 
-		//Creación de la matriz de Adyaciencias
+		// Creación de la matriz de Adyaciencias
 		int[][] matriz = matrizAdyacencias();
 
-		//Bucle para mostrar los vertices.toString() y los valores de matriz de adyaciencias
-		int i=0;
-		for(Vertice verticesKey:verticesAdyacentes.keySet()) {
+		// Bucle para mostrar los vertices.toString() y los valores de matriz de
+		// adyaciencias
+		int i = 0;
+		for (Vertice verticesKey : verticesAdyacentes.keySet()) {
 			grafo += verticesKey + " | ";
-			for(int j=0;j<numVertices;j++) {
+			for (int j = 0; j < numVertices; j++) {
 				grafo += matriz[i][j] + " ";
 			}
 			grafo += '\n';
 			i++;
 		}
 
-		return encabezado+'\n'+grafo;
+		return encabezado + '\n' + grafo;
 	}
 
 	/**
 	 * 
-	 * @return		matriz de adyaciencias por vertices
+	 * @return matriz de adyaciencias por vertices
 	 */
-	private int[][]	matrizAdyacencias() {
-		int[][]	matriz = new int[verticesAdyacentes.size()][verticesAdyacentes.size()];
-		HashMap<Vertice, Integer> indicesVertices = new HashMap<Vertice, Integer>();
+	protected int[][] matrizAdyacencias() {
+		int[][] matriz = new int[vertices.size()][vertices.size()];
+		HashMap<Vertice, Integer> indicesVertices = new HashMap<>();
 
-		//Rellenamos los keys con vertices de la lista y los valores de los indices,
-		//para acceder rapidamente con el hash
-		int i=0;
-		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
+		// Rellenamos los keys con vertices de la lista y los valores de los indices,
+		// para acceder rapidamente con el hash
+		int i = 0;
+		for (Vertice verticeKey : vertices) {
 			indicesVertices.put(verticeKey, i++);
 		}
 
-		//Accedemos a la lista aristas, obtenemos los vertices de origen y destino,
-		//comprobamos su indice por el HashMap con complejidad O(1), y en 
-		for(Vertice verticeKey:verticesAdyacentes.keySet()) {
-			HashSet<Arista> aristas = verticesAdyacentes.get(verticeKey);
-			for(Arista arista : aristas) {
-				int fila = indicesVertices.get(arista.getV0());
-				int columna = indicesVertices.get(arista.getVf());
+		// Accedemos a la lista aristas, obtenemos los vertices de origen y destino,
+		// comprobamos su indice por el HashMap con complejidad O(1), y en
+		for (Arista arista : aristas) {
+			int fila = indicesVertices.get(arista.getV0());
+			int columna = indicesVertices.get(arista.getVf());
 
-				matriz[fila][columna] = arista.getPeso();
-			}
+			matriz[fila][columna] = arista.getPeso();
 		}
-
 
 		return matriz;
 	}
@@ -178,30 +186,38 @@ public class Digrafo implements IGrafo{
 	 * PRE: nombreVertice != null && !nombreVertice.isEmpty()
 	 * POST: Devuelve el vertices
 	 * 
-	 * @param 		nombreVertice
-	 * @return		el vertice de busqueda
+	 * @param nombreVertice
+	 * @return el vertice de busqueda
 	 */
+	@Override
 	public Vertice getVertex(String nombreVertice) {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
-		return (verticesAdyacentes.containsKey(verticeBusqueda)) ? verticeBusqueda : null;
+		return (vertices.contains(verticeBusqueda)) ? verticeBusqueda : null;
 	}
 
-	public HashMap<Vertice, HashSet<Arista>> getAtribute() {
-		return verticesAdyacentes;
+	public HashMap<Vertice, HashSet<Arista>> getVerticesAdyacentes() {
+		return this.verticesAdyacentes;
 	}
 
-	public HashSet<Arista> getEdgesOfVertex(String nombreVertice){
-		return verticesAdyacentes.get(getVertex(nombreVertice));
+	@Override
+	public HashSet<Arista> getEdgesOfVertex(String nombreVertice) {
+		Vertice vertice = getVertex(nombreVertice);
+		return (vertice != null) ? verticesAdyacentes.get(vertice) : null;
 	}
 
+	@Override
 	public Arista getEdge(String nombreOrigen, String nombreDestino) {
 		Arista aristaBusqueda = null;
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);
 
-		if(origen != null && destino != null) {
-			aristaBusqueda = new Arista(origen,destino);
+		if (origen != null && destino != null) {
+			for (Arista arista : verticesAdyacentes.get(origen)) { // O(grado vertice)
+				if (arista.getVf().equals(destino)) {
+					aristaBusqueda = arista; // Obtiene su referencia y consigo el peso
+				}
+			}
 		}
 
 		return aristaBusqueda;
@@ -213,36 +229,23 @@ public class Digrafo implements IGrafo{
 	 * 
 	 * @return referencia de todas las aristas del grafo
 	 */
-	public HashSet<Arista> getEdges(){
-		HashSet<Arista> aristasTotales = new HashSet<Arista>();
-
-		for(Vertice verticeKey:getVertexs()) {
-			aristasTotales.addAll(getEdgesOfVertex(verticeKey.getNombre()));
-		}
-
-		return aristasTotales;
+	@Override
+	public HashSet<Arista> getEdges() {
+		return this.aristas;
 	}
 
-	public HashSet<Vertice> getVertexs(){
-		return new HashSet<Vertice>(verticesAdyacentes.keySet());
+	@Override
+	public HashSet<Vertice> getVertexs() {
+		return this.vertices;
 	}
 
+	@Override
 	public int numOfVertexs() {
 		return verticesAdyacentes.size();
 	}
 
+	@Override
 	public int numOfEdges() {
 		return getEdges().size();
-	}
-
-	public boolean isSimpleGraph() {
-		boolean encontrado = false;
-
-		for(Vertice verticeKey:getVertexs()) {
-			encontrado = verticesAdyacentes.get(verticeKey).
-					contains(new Arista(verticeKey,verticeKey));
-		}
-
-		return !encontrado;
 	}
 }

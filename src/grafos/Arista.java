@@ -3,8 +3,8 @@ import java.util.Objects;
 
 public class Arista {
 	private int peso;	//Peso de la arista
-	private Vertice v0; //Vertice inicial
-	private Vertice vf; //Vertice final
+	private final Vertice v0; //Vertice inicial
+	private final Vertice vf; //Vertice final
 	
 	/**
 	 * PRE: v0 != null && vf != null
@@ -58,6 +58,10 @@ public class Arista {
 		return vf;
 	}
 	
+	public void setPeso(int nuevoPeso) {
+		this.peso = nuevoPeso;
+	}
+	
 	/**
 	 * 
 	 * @param nombreVertice
@@ -65,7 +69,7 @@ public class Arista {
 	 * con uno de los vertices de la arista
 	 */
 	public boolean contieneVertice(String nombreVertice) {
-		return v0.toString().equals(nombreVertice) || vf.toString().equals(nombreVertice);
+		return v0.getNombre().equals(nombreVertice) || vf.getNombre().equals(nombreVertice);
 	}
 	
 	@Override
@@ -81,8 +85,7 @@ public class Arista {
 		
 		Arista arista = (Arista) obj;
 		
-		return (v0.equals(arista.v0) && vf.equals(arista.vf)) ||
-				(v0.equals(arista.vf) && vf.equals(arista.v0));
+		return v0.equals(arista.v0) && vf.equals(arista.vf);
 	}
 	
 	@Override

@@ -69,10 +69,11 @@
 - Implementación de Busqueda en Anchura (BEA)
 
 ### 🧠 Key learnings / Aprendizajes clave
-- 
+- Identificar que TADs usar (pila o cola) o que estructura de datos
+  para cada algoritmo para facilitar la busqueda
 
 ### 🐛 Challenges / Dificultades
-- 
+- Estructurar el proceso algoritmico a partir de mi código
 
 ### ⏭️ Next steps / Próximos pasos
 - [ ] Implementar algoritmo de Prim

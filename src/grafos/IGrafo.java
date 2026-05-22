@@ -1,6 +1,6 @@
 package grafos;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.HashSet;
 
 public interface IGrafo {
@@ -27,7 +27,7 @@ public interface IGrafo {
 	
 	public HashSet<Vertice> getVertexs();
 	
-	public HashMap<Vertice, HashSet<Arista>> getAtribute();
+	//public HashMap<Vertice, HashSet<Arista>> getAtribute();
 	
 	public int numOfVertexs();
 	

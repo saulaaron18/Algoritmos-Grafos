@@ -1,10 +1,9 @@
 package algoritmos_grafos;
 
+import grafos.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
-
-import grafos.*;
 
 public abstract class Busquedas {
 
@@ -15,13 +14,13 @@ public abstract class Busquedas {
 	 * @param grafo
 	 * @return
 	 */
-	public static IGrafo busquedaEnProfundidad(String nombreRaiz, IGrafo grafo) {
-		IGrafo arbolEnProfundidad = new Digrafo();
+	public static Digrafo busquedaEnProfundidad(String nombreRaiz, IGrafo grafo) {
+		Digrafo arbolEnProfundidad = new Digrafo();
 
 		//Cola de vertices encontrados durante el algoritmo y
 		//HashSet de vertices visitados
-		Deque<String> verticesCola = new ArrayDeque<String>();
-		HashSet<String> verticesVisitados = new HashSet<String>();
+		Deque<String> verticesCola = new ArrayDeque<>();
+		HashSet<String> verticesVisitados = new HashSet<>();
 
 		//Estado inicial, con Arbol trivial, la cola de busqueda con raíz y 
 		//HashSet con raíz
@@ -65,12 +64,12 @@ public abstract class Busquedas {
 	 * @param grafo
 	 * @return
 	 */
-	public static Digrafo busquedaEnAnchura(String nombreRaiz, Digrafo grafo) {
+	public static Digrafo busquedaEnAnchura(String nombreRaiz, IGrafo grafo) {
 		Digrafo arbolDeBusqueda = new Digrafo();
 
 		//Inicialización de la cola y vertices
-		Deque<String> verticesCola = new ArrayDeque<String>();
-		HashSet<String> verticesVisitados = new HashSet<String>();
+		Deque<String> verticesCola = new ArrayDeque<>();
+		HashSet<String> verticesVisitados = new HashSet<>();
 
 		//Estado inicial
 		arbolDeBusqueda.addVertex(nombreRaiz);
