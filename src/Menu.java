@@ -1,11 +1,11 @@
-import java.util.Scanner;
 import grafos.*;
+import java.util.Scanner;
 
 public class Menu {
-	private static Scanner sc = new Scanner(System.in);
+	private final static Scanner sc = new Scanner(System.in);
 
-	public static void menuDeSeleccion(Grafo grafo) {
-		char seleccion=' ';
+	public static void menuDeSeleccion(Digrafo grafo) {
+		char seleccion;
 
 		do {
 			interfazGraficaDeSeleccion();
@@ -31,7 +31,7 @@ public class Menu {
 
 	}
 
-	private static void accionSeleccionMenu(char seleccion, Grafo grafo) {
+	private static void accionSeleccionMenu(char seleccion, Digrafo grafo) {
 		switch(seleccion) {
 		case '0':
 			System.out.println("FIN.");
@@ -51,8 +51,8 @@ public class Menu {
 		}
 	}
 
-	private static void menuVertice(Grafo grafo) {
-		char seleccion = ' ';
+	private static void menuVertice(Digrafo grafo) {
+		char seleccion;
 		do {
 			interfazGraficaMenuVertice();
 
@@ -75,7 +75,7 @@ public class Menu {
 		System.out.println("\n0. Volver atras\n");
 	}
 
-	private static void accionSeleccionMenuVertice(char seleccion, Grafo grafo) {
+	private static void accionSeleccionMenuVertice(char seleccion, Digrafo grafo) {
 		switch(seleccion) {
 
 		case '0':
@@ -106,7 +106,7 @@ public class Menu {
 			break;
 
 		case '4':
-			System.out.println(grafo.mostrarVertices());
+			System.out.println(grafo.showVertexs());
 
 			System.out.println("Volviendo al menú del Vertice.");
 
@@ -117,35 +117,35 @@ public class Menu {
 		}
 	}
 
-	private static void añadirVertice(Grafo grafo) {
-		String nombreVertice="";
-		boolean complete = false;
+	private static void añadirVertice(Digrafo grafo) {
+		String nombreVertice;
+		boolean complete;
 		do {
 			System.out.print("Indique el nombre del vertice: ");
 
 			nombreVertice = sc.nextLine().trim();
 
-			complete = grafo.añadirVertice(nombreVertice);
+			complete = grafo.addVertex(nombreVertice);
 		}while(!complete);
 	}
 
-	private static void eliminarVertice(Grafo grafo) {
-		String nombreVertice="";
-		boolean complete=false;
+	private static void eliminarVertice(Digrafo grafo) {
+		String nombreVertice;
+		boolean complete;
 
-		System.out.println(grafo.mostrarVertices());
+		System.out.println(grafo.showVertexs());
 
 		do {
 			System.out.print("Indique el nombre del vertice que desea eliminar: ");
 
 			nombreVertice = sc.nextLine().trim();
 
-			complete = grafo.eliminarVertice(nombreVertice);
+			complete = grafo.removeVertex(nombreVertice);
 		}while(!complete);
 	}
 
-	private static void menuArista(Grafo grafo) {
-		char seleccion = ' ';
+	private static void menuArista(Digrafo grafo) {
+		char seleccion;
 		do {
 			interfazGraficaMenuArista();
 
@@ -168,7 +168,7 @@ public class Menu {
 		System.out.println("\n0. Volver atras\n");
 	}
 
-	private static void accionSeleccionMenuArista(char seleccion, Grafo grafo) {
+	private static void accionSeleccionMenuArista(char seleccion, Digrafo grafo) {
 		switch(seleccion) {
 		case '0':
 			System.out.println("Saliendo al Menú.");
@@ -198,7 +198,7 @@ public class Menu {
 			break;
 
 		case '4':
-			System.out.println(grafo.mostrarAristas());
+			System.out.println(grafo.showEdges());
 
 			System.out.println("Volviendo al menú del Vertice.");
 
@@ -209,11 +209,11 @@ public class Menu {
 		}
 	}
 
-	private static void añadirArista(Grafo grafo) {
-		boolean complete = false;
-		String nombreVerticeOrigen="";
-		String nombreVerticeDestino="";
-		int peso=1;
+	private static void añadirArista(Digrafo grafo) {
+		boolean complete;
+		String nombreVerticeOrigen;
+		String nombreVerticeDestino;
+		int peso;
 		do {
 			System.out.print("Indique el nombre del vertice origen: ");
 
@@ -227,14 +227,14 @@ public class Menu {
 
 			peso = sc.nextInt();
 
-			complete = grafo.añadirArista(nombreVerticeOrigen, nombreVerticeDestino, peso);
+			complete = grafo.addEdge(nombreVerticeOrigen, nombreVerticeDestino, peso);
 		}while(!complete);
 	}
 
-	private static void eliminarArista(Grafo grafo) {
-		boolean complete = false;
-		String nombreVerticeOrigen="";
-		String nombreVerticeDestino="";
+	private static void eliminarArista(Digrafo grafo) {
+		boolean complete;
+		String nombreVerticeOrigen;
+		String nombreVerticeDestino;
 		do {
 			System.out.print("Indique el nombre del vertice origen de la arista a eliminar: ");
 
@@ -244,12 +244,12 @@ public class Menu {
 
 			nombreVerticeDestino = sc.nextLine().trim();
 
-			complete = grafo.eliminarArista(nombreVerticeOrigen, nombreVerticeDestino);
+			complete = grafo.removeEdge(nombreVerticeOrigen, nombreVerticeDestino);
 		}while(!complete);
 	}
 
 	public static void main(String[] args) {
-		Grafo grafo = new Grafo();
+		Digrafo grafo = new Digrafo();
 
 		menuDeSeleccion(grafo);
 	}

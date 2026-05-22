@@ -2,26 +2,30 @@ package testing;
 
 import grafos.*;
 
-public class TestMainGrafo {
+public class TestMainDigrafo {
 
 	public static void main(String[] args) {
-		Grafo grafo = new Grafo();
+		Digrafo grafo = new Digrafo();
 		
-		grafo.añadirVertice("A");
-		grafo.añadirVertice("B");
-		grafo.añadirVertice("C");
-		
+		grafo.addVertex("A");
+		grafo.addVertex("B");
+		grafo.addVertex("C");
+				
 		System.out.println(grafo);
 
-		grafo.añadirArista("A", "B", 1);
-		grafo.añadirArista("A", "C", 3);
-		grafo.añadirArista("C", "B", -2);
-		
-		System.out.println(grafo.toString());
-		
-		grafo.eliminarArista("A", "B");
+		System.out.println(grafo.addEdge("A", "B", 1)); //True
+		grafo.addEdge("A", "C", 3);
+		grafo.addEdge("C", "B", -2);
 		
 		System.out.println(grafo);
+		System.out.println(grafo.showEdges());
+		System.out.println(grafo.showEdges());
+		
+		grafo.removeVertex("A");
+		
+		System.out.println(grafo);
+		System.out.println(grafo.showEdges());
+		System.out.println(grafo.showEdges());
 	}
 
 }

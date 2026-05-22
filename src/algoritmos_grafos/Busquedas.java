@@ -1,55 +1,54 @@
 package algoritmos_grafos;
 
+import grafos.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
-
-import grafos.*;
 
 public abstract class Busquedas {
 
 	/**
 	 * PRE: la raiz pertenece al grafo
 	 * 
-	 * @param raiz
-	 * @param grafo
-	 * @return
+	 * @param nombreRaiz nombre de la raiz
+	 * @param grafo      grafo el cuál se realizará la busqueda
+	 * @return arbol de busqueda en profundidad a partir de la raiz
 	 */
-	public static Grafo busquedaEnProfundidad(String nombreRaiz, Grafo grafo) {
-		Grafo arbolEnProfundidad = new Grafo();
+	public static Digrafo busquedaEnProfundidad(String nombreRaiz, IGrafo grafo) {
+		Digrafo arbolEnProfundidad = new Digrafo();
 
-		//Cola de vertices encontrados durante el algoritmo y
-		//HashSet de vertices visitados
-		Deque<String> verticesCola = new ArrayDeque<String>();
-		HashSet<String> verticesVisitados = new HashSet<String>();
+		// Cola de vertices encontrados durante el algoritmo y
+		// HashSet de vertices visitados
+		Deque<String> verticesCola = new ArrayDeque<>();
+		HashSet<String> verticesVisitados = new HashSet<>();
 
-		//Estado inicial, con Arbol trivial, la cola de busqueda con raíz y 
-		//HashSet con raíz
-		arbolEnProfundidad.añadirVertice(nombreRaiz);
+		// Estado inicial, con Arbol trivial, la cola de busqueda con raíz y
+		// HashSet con raíz
+		arbolEnProfundidad.addVertex(nombreRaiz);
 		verticesCola.push(nombreRaiz);
 		verticesVisitados.add(nombreRaiz);
 
-		while(!verticesCola.isEmpty()) {
+		while (!verticesCola.isEmpty()) {
 			boolean encontrado = false;
-			HashSet<Arista> aristas = grafo.getAristas(verticesCola.peek());
+			HashSet<Arista> aristas = grafo.getEdgesOfVertex(verticesCola.peek());
 
-			for(Arista arista:aristas) {
+			for (Arista arista : aristas) {
 				String verticeDestino = arista.getVf().toString();
 
-				if(!verticesVisitados.contains(verticeDestino)) {
-					arbolEnProfundidad.añadirVertice(verticeDestino);
-					arbolEnProfundidad.añadirArista(verticesCola.peek(), verticeDestino, arista.getPeso());
+				if (!verticesVisitados.contains(verticeDestino)) {
+					arbolEnProfundidad.addVertex(verticeDestino);
+					arbolEnProfundidad.addEdge(verticesCola.peek(), verticeDestino, arista.getPeso());
 
 					verticesCola.push(verticeDestino);
 					verticesVisitados.add(verticeDestino);
 
 					encontrado = true;
 
-					break; //Salimos del bucle for()
+					break; // Salimos del bucle for()
 				}
-			}//Fin bucle for()
+			} // Fin bucle for()
 
-			if(!encontrado) {
+			if (!encontrado) {
 				verticesCola.pop();
 			}
 
@@ -61,40 +60,40 @@ public abstract class Busquedas {
 	/**
 	 * PRE: la raíz pertenece al grafo
 	 * 
-	 * @param nombreRaiz
-	 * @param grafo
-	 * @return
+	 * @param nombreRaiz nombre de la raíz
+	 * @param grafo      grafo el cual se realizará la busqueda
+	 * @return arbol de busqueda en anchura a partir de la raíz
 	 */
-	public static Grafo busquedaEnAnchura(String nombreRaiz, Grafo grafo) {
-		Grafo arbolDeBusqueda = new Grafo();
+	public static Digrafo busquedaEnAnchura(String nombreRaiz, IGrafo grafo) {
+		Digrafo arbolDeBusqueda = new Digrafo();
 
-		//Inicialización de la cola y vertices
-		Deque<String> verticesCola = new ArrayDeque<String>();
-		HashSet<String> verticesVisitados = new HashSet<String>();
+		// Inicialización de la cola y vertices
+		Deque<String> verticesCola = new ArrayDeque<>();
+		HashSet<String> verticesVisitados = new HashSet<>();
 
-		//Estado inicial
-		arbolDeBusqueda.añadirVertice(nombreRaiz);
+		// Estado inicial
+		arbolDeBusqueda.addVertex(nombreRaiz);
 		verticesCola.add(nombreRaiz);
 		verticesVisitados.add(nombreRaiz);
 
-		while(!verticesCola.isEmpty()) {
-			//Obtenemos las aristas de la cabeza de la cola
-			HashSet<Arista> aristas = grafo.getAristas(verticesCola.peekFirst());
-			
-			for(Arista arista:aristas) {
+		while (!verticesCola.isEmpty()) {
+			// Obtenemos las aristas de la cabeza de la cola
+			HashSet<Arista> aristas = grafo.getEdgesOfVertex(verticesCola.peekFirst());
+
+			for (Arista arista : aristas) {
 				String verticeDestino = arista.getVf().toString();
-				
-				//Verificamos que no los hayamos visitado antes
-				if(!verticesVisitados.contains(verticeDestino)) {
-					arbolDeBusqueda.añadirVertice(verticeDestino);
-					arbolDeBusqueda.añadirArista(verticesCola.peekFirst(), verticeDestino, arista.getPeso());
+
+				// Verificamos que no los hayamos visitado antes
+				if (!verticesVisitados.contains(verticeDestino)) {
+					arbolDeBusqueda.addVertex(verticeDestino);
+					arbolDeBusqueda.addEdge(verticesCola.peekFirst(), verticeDestino, arista.getPeso());
 
 					verticesCola.add(verticeDestino);
 					verticesVisitados.add(verticeDestino);
 				}
-			}//FIN bucle for()
-			
-			//Eliminamos el primer elemento
+			} // FIN bucle for()
+
+			// Eliminamos el primer elemento
 			verticesCola.poll();
 		}
 
