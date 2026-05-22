@@ -14,13 +14,6 @@ public class Digrafo implements IGrafo {
 		this.aristas = new HashSet<>();
 	}
 
-	/**
-	 * PRE: No hay un vertice null y no es vacio
-	 * POST: Crea y añade un vertice a la lista de vertices
-	 * 
-	 * @param nombreVertice
-	 * @return true si se añadió correctamente
-	 */
 	@Override
 	public boolean addVertex(String nombreVertice) {
 		Vertice verticeNuevo = new Vertice(nombreVertice);
@@ -29,13 +22,6 @@ public class Digrafo implements IGrafo {
 		return vertices.add(verticeNuevo);
 	}
 
-	/**
-	 * PRE: nombreVertice != null
-	 * POST: Elimina las aristas conectadas al vertice y el vertice mismo
-	 * 
-	 * @param nombreVertice
-	 * @return true si se añadio correctamente
-	 */
 	@Override
 	public boolean removeVertex(String nombreVertice) {
 		Vertice verticeEliminacion = getVertex(nombreVertice);
@@ -64,16 +50,6 @@ public class Digrafo implements IGrafo {
 
 	}
 
-	/**
-	 * PRE: peso != 0
-	 * POST: Crea la arista conectada desde el vertice de origen al de destino
-	 * y aumenta el grado del vertice origen
-	 * 
-	 * @param nombreOrigen
-	 * @param nombreDestino
-	 * @param peso
-	 * @return true si se añadio correctamente
-	 */
 	@Override
 	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso) {
 		// Buscamos los vertices de la lista vertices
@@ -92,14 +68,6 @@ public class Digrafo implements IGrafo {
 
 	}
 
-	/**
-	 * PRE: Cierto
-	 * POST: Elimina la arista
-	 * 
-	 * @param nombreOrigen
-	 * @param nombreDestino
-	 * @return true si se ha removido correctamente
-	 */
 	@Override
 	public boolean removeEdge(String nombreOrigen, String nombreDestino) {
 		Vertice origen = getVertex(nombreOrigen);
@@ -160,7 +128,7 @@ public class Digrafo implements IGrafo {
 	 * @return matriz de adyaciencias por vertices
 	 */
 	protected int[][] matrizAdyacencias() {
-		int[][] matriz = new int[vertices.size()][vertices.size()];
+		int[][] matriz = new int[numOfVertexs()][numOfVertexs()];
 		HashMap<Vertice, Integer> indicesVertices = new HashMap<>();
 
 		// Rellenamos los keys con vertices de la lista y los valores de los indices,
@@ -182,13 +150,6 @@ public class Digrafo implements IGrafo {
 		return matriz;
 	}
 
-	/**
-	 * PRE: nombreVertice != null && !nombreVertice.isEmpty()
-	 * POST: Devuelve el vertices
-	 * 
-	 * @param nombreVertice
-	 * @return el vertice de busqueda
-	 */
 	@Override
 	public Vertice getVertex(String nombreVertice) {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
@@ -196,6 +157,7 @@ public class Digrafo implements IGrafo {
 		return (vertices.contains(verticeBusqueda)) ? verticeBusqueda : null;
 	}
 
+	@Override
 	public HashMap<Vertice, HashSet<Arista>> getVerticesAdyacentes() {
 		return this.verticesAdyacentes;
 	}
@@ -223,12 +185,6 @@ public class Digrafo implements IGrafo {
 		return aristaBusqueda;
 	}
 
-	/**
-	 * PRE: cierto
-	 * POST: devuelve todas las aristas del grafo
-	 * 
-	 * @return referencia de todas las aristas del grafo
-	 */
 	@Override
 	public HashSet<Arista> getEdges() {
 		return this.aristas;
