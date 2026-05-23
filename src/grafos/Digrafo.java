@@ -67,6 +67,11 @@ public class Digrafo implements IGrafo {
 		return aristas.add(aristaNueva);
 
 	}
+	
+	@Override
+	public boolean addEdge(String nombreOrigen, String nombreDestino) {
+		return addEdge(nombreOrigen, nombreDestino, 1);
+	}
 
 	@Override
 	public boolean removeEdge(String nombreOrigen, String nombreDestino) {
@@ -175,7 +180,7 @@ public class Digrafo implements IGrafo {
 		Vertice destino = getVertex(nombreDestino);
 
 		if (origen != null && destino != null) {
-			for (Arista arista : verticesAdyacentes.get(origen)) { // O(grado vertice)
+			for (Arista arista : verticesAdyacentes.get(origen)) { // O(grado vertice origen)
 				if (arista.getVf().equals(destino)) {
 					aristaBusqueda = arista; // Obtiene su referencia y consigo el peso
 				}

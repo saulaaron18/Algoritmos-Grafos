@@ -35,6 +35,18 @@ public interface IGrafo {
 	 * @return true si se añadio correctamente
 	 */
 	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso);
+	
+	/**
+	 * Crea la arista que conecta el vertice de origen al de destino.
+	 * Puede ser dirigida a un sentido en un Digrafo o de ambos sentidos
+	 * en caso de un Grafo
+	 * PRE: Cierto
+	 * 
+	 * @param nombreOrigen  nombre del vertice de origen
+	 * @param nombreDestino nombre del vertice de destino
+	 * @return true si se añadio correctamente
+	 */
+	public boolean addEdge(String nombreOrigen, String nombreDestino);
 
 	/**
 	 * PRE: Cierto

@@ -5,8 +5,7 @@ import java.util.HashSet;
 
 public class Grafo extends Digrafo implements IGrafo {
 
-	public Grafo() {
-		super();
+	public Grafo(){
 	}
 
 	@Override
