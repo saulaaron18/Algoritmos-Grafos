@@ -1,9 +1,9 @@
-/bin
+bin/
 
-/.classpath
+.classpath
 
-/.project
+.project
 
-/.vscode
+.vscode/
 
-/.settings
+.settings/
