@@ -8,8 +8,12 @@ public class Vertice {
 	 * PRE: nombre != null && !nombre.isEmpty()
 	 * POST: Asigna nombre y el grado por defecto
 	 * @param nombre
+	 * @throws IllegalArgumentException
 	 */
-	public Vertice(String nombre) {
+	public Vertice(String nombre) throws IllegalArgumentException {
+		if(nombre==null || nombre.trim().isEmpty()){
+			throw new IllegalArgumentException();
+		}
 		this.nombre = nombre.trim();
 	}
 	

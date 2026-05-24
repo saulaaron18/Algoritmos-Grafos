@@ -15,7 +15,7 @@ public class Digrafo implements IGrafo {
 	}
 
 	@Override
-	public boolean addVertex(String nombreVertice) {
+	public boolean addVertex(String nombreVertice) throws IllegalArgumentException {
 		Vertice verticeNuevo = new Vertice(nombreVertice);
 
 		verticesAdyacentes.put(verticeNuevo, new HashSet<>());
@@ -23,7 +23,7 @@ public class Digrafo implements IGrafo {
 	}
 
 	@Override
-	public boolean removeVertex(String nombreVertice) {
+	public boolean removeVertex(String nombreVertice) throws IllegalArgumentException {
 		Vertice verticeEliminacion = getVertex(nombreVertice);
 
 		// Comprobamos que no es nulo
@@ -51,13 +51,13 @@ public class Digrafo implements IGrafo {
 	}
 
 	@Override
-	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso) {
+	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso) throws IllegalArgumentException {
 		// Buscamos los vertices de la lista vertices
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);
 
 		// Comprobamos si no son nulos para añadir la arista a la lista
-		if (origen == null || destino == null) {
+		if (origen == null || destino == null || origen.equals(destino)) {
 			return false;
 		}
 
@@ -69,12 +69,12 @@ public class Digrafo implements IGrafo {
 	}
 	
 	@Override
-	public boolean addEdge(String nombreOrigen, String nombreDestino) {
+	public boolean addEdge(String nombreOrigen, String nombreDestino) throws IllegalArgumentException {
 		return addEdge(nombreOrigen, nombreDestino, 1);
 	}
 
 	@Override
-	public boolean removeEdge(String nombreOrigen, String nombreDestino) {
+	public boolean removeEdge(String nombreOrigen, String nombreDestino) throws IllegalArgumentException {
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);
 
@@ -156,7 +156,7 @@ public class Digrafo implements IGrafo {
 	}
 
 	@Override
-	public Vertice getVertex(String nombreVertice) {
+	public Vertice getVertex(String nombreVertice) throws IllegalArgumentException{
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
 		return (vertices.contains(verticeBusqueda)) ? verticeBusqueda : null;
@@ -168,13 +168,13 @@ public class Digrafo implements IGrafo {
 	}
 
 	@Override
-	public HashSet<Arista> getEdgesOfVertex(String nombreVertice) {
+	public HashSet<Arista> getEdgesOfVertex(String nombreVertice) throws IllegalArgumentException {
 		Vertice vertice = getVertex(nombreVertice);
 		return (vertice != null) ? verticesAdyacentes.get(vertice) : null;
 	}
 
 	@Override
-	public Arista getEdge(String nombreOrigen, String nombreDestino) {
+	public Arista getEdge(String nombreOrigen, String nombreDestino) throws IllegalArgumentException {
 		Arista aristaBusqueda = null;
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);

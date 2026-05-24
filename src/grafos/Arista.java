@@ -7,15 +7,21 @@ public class Arista {
 	private final Vertice vf; //Vertice final
 	
 	/**
-	 * PRE: v0 != null && vf != null
+	 * PRE: v0 != null && !v0.isEmpty() 
+	 * && vf != null && !vf.isEmpty()
 	 * POST: Construye una arista conectado a dos vertices existentes y 
 	 * se le asigna un peso
 	 * 
-	 * @param 	v0
-	 * @param 	vf
-	 * @param 	peso
+	 * @param 	v0 vertice de origen
+	 * @param 	vf vertice destino
+	 * @param 	peso o magnitud de la arista
+	 * @throws IllegalArgumentException
 	 */
-	public Arista(Vertice v0, Vertice vf,int peso) {
+	public Arista(Vertice v0, Vertice vf,int peso) throws IllegalArgumentException{
+		if(peso==0) {
+			throw new IllegalArgumentException("El peso de la arista no puede ser 0");
+		}
+		
 		this.peso = peso;
 		this.v0 = v0;
 		this.vf = vf;

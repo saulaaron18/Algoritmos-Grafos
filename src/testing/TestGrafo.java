@@ -226,8 +226,8 @@ public class TestGrafo {
 
     @Test
     public void addEdge_selfLoop() {
-        // Grafo has no self-loop guard: creates one edge A→A
         grafo.addVertex("A");
+        //Grafo doesn't accept loops
         assertFalse(grafo.addEdge("A", "A"));
         assertEquals(0, grafo.numOfEdges());
     }

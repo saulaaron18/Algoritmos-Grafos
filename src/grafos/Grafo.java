@@ -15,7 +15,7 @@ public class Grafo extends Digrafo implements IGrafo {
 		Vertice destino = getVertex(nombreDestino);
 
 		// Comprobamos si no son nulos para añadir la arista a la lista
-		if (origen == null || destino == null) {
+		if (origen == null || destino == null || origen.equals(destino)) {
 			return false;
 		}
 
