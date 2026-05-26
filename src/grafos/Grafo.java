@@ -3,8 +3,18 @@ package grafos;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * Grafo simple, que no acepta bucles o aristas multiples.
+ * Al heredar de digrafo realmente se trata de un digrafo de doble sentido.
+ * 
+ * @author Saúl Aarón
+ * @version 1.0
+ */
 public class Grafo extends Digrafo implements IGrafo {
-
+	
+	/**
+	 * Constructor vacio de la clase Grafo, que llama el costructor Digrafo
+	 */
 	public Grafo(){
 	}
 

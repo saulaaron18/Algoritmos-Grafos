@@ -5,41 +5,45 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 
-public abstract class Busquedas {
-
+public final class Busquedas {
 	/**
 	 * PRE: la raiz pertenece al grafo
 	 * 
 	 * @param nombreRaiz nombre de la raiz
 	 * @param grafo      grafo el cuál se realizará la busqueda
-	 * @return arbol de busqueda en profundidad a partir de la raiz
+	 * @return arbol de busqueda en profundidad como digrafo a partir de la raiz
+	 * @throws IllegalArgumentException
 	 */
-	public static Digrafo busquedaEnProfundidad(String nombreRaiz, IGrafo grafo) {
+	public static Digrafo busquedaEnProfundidad(String nombreRaiz, IGrafo grafo) throws IllegalArgumentException {
+		if(grafo.getVertex(nombreRaiz) == null){
+			throw new IllegalArgumentException("El nombre del vertice de comienzo (raíz) " + nombreRaiz + "no pertenece al grafo");
+		}
+
 		Digrafo arbolEnProfundidad = new Digrafo();
 
-		// Cola de vertices encontrados durante el algoritmo y
+		// Pila de vertices encontrados durante el algoritmo y
 		// HashSet de vertices visitados
-		Deque<String> verticesCola = new ArrayDeque<>();
+		Deque<String> verticesPila = new ArrayDeque<>();
 		HashSet<String> verticesVisitados = new HashSet<>();
 
-		// Estado inicial, con Arbol trivial, la cola de busqueda con raíz y
+		// Estado inicial, con arbol trivial, la pila de busqueda con raíz y
 		// HashSet con raíz
 		arbolEnProfundidad.addVertex(nombreRaiz);
-		verticesCola.push(nombreRaiz);
+		verticesPila.push(nombreRaiz);
 		verticesVisitados.add(nombreRaiz);
 
-		while (!verticesCola.isEmpty()) {
+		while (!verticesPila.isEmpty()) {
 			boolean encontrado = false;
-			HashSet<Arista> aristas = grafo.getEdgesOfVertex(verticesCola.peek());
+			HashSet<Arista> aristas = grafo.getEdgesOfVertex(verticesPila.peek());
 
 			for (Arista arista : aristas) {
 				String verticeDestino = arista.getVf().toString();
 
 				if (!verticesVisitados.contains(verticeDestino)) {
 					arbolEnProfundidad.addVertex(verticeDestino);
-					arbolEnProfundidad.addEdge(verticesCola.peek(), verticeDestino, arista.getPeso());
+					arbolEnProfundidad.addEdge(verticesPila.peek(), verticeDestino, arista.getPeso());
 
-					verticesCola.push(verticeDestino);
+					verticesPila.push(verticeDestino);
 					verticesVisitados.add(verticeDestino);
 
 					encontrado = true;
@@ -49,7 +53,7 @@ public abstract class Busquedas {
 			} // Fin bucle for()
 
 			if (!encontrado) {
-				verticesCola.pop();
+				verticesPila.pop();
 			}
 
 		}
@@ -63,8 +67,13 @@ public abstract class Busquedas {
 	 * @param nombreRaiz nombre de la raíz
 	 * @param grafo      grafo el cual se realizará la busqueda
 	 * @return arbol de busqueda en anchura a partir de la raíz
+	 * @throws IllegalArgumentException
 	 */
-	public static Digrafo busquedaEnAnchura(String nombreRaiz, IGrafo grafo) {
+	public static Digrafo busquedaEnAnchura(String nombreRaiz, IGrafo grafo) throws IllegalArgumentException{
+		if(grafo.getVertex(nombreRaiz) == null){
+			throw new IllegalArgumentException("El nombre del vertice de comienzo (raíz) " + nombreRaiz + "no pertenece al grafo");
+		}
+
 		Digrafo arbolDeBusqueda = new Digrafo();
 
 		// Inicialización de la cola y vertices

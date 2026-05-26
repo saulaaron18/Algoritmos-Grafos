@@ -3,11 +3,21 @@ package grafos;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * Digrafo simple, que no acepta bucles y aristas multiples de mismo sentido
+ * 
+ * @author Saúl Aarón
+ * @version 1.0
+ */
 public class Digrafo implements IGrafo {
 	private final HashSet<Vertice> vertices;
 	private final HashSet<Arista> aristas;
 	private final HashMap<Vertice, HashSet<Arista>> verticesAdyacentes;
 
+	/**
+	 * Constructor de la clase Digrafo que inicializa los atributos de un Grafo: 
+	 * vertices, aristas, vertices adyacentes.
+	 */
 	public Digrafo() {
 		this.verticesAdyacentes = new HashMap<>();
 		this.vertices = new HashSet<>();

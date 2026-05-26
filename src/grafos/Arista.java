@@ -1,14 +1,20 @@
 package grafos;
 import java.util.Objects;
 
+/**
+ * Clase Arista que diseña una arista dirigida ponderada (default 1), conectada
+ * a dos vertices de origen y destino
+ * 
+ * @author Saúl Aarón
+ * @version 1.0
+ */
 public class Arista {
 	private int peso;	//Peso de la arista
 	private final Vertice v0; //Vertice inicial
 	private final Vertice vf; //Vertice final
 	
 	/**
-	 * PRE: v0 != null && !v0.isEmpty() 
-	 * && vf != null && !vf.isEmpty()
+	 * PRE: {@code v0 != null && !v0.isEmpty() && vf != null && !vf.isEmpty()}
 	 * POST: Construye una arista conectado a dos vertices existentes y 
 	 * se le asigna un peso
 	 * 
@@ -28,7 +34,7 @@ public class Arista {
 	}
 	
 	/**
-	 * PRE: v0 != null && vf != null
+	 * PRE: {@code v0 != null && vf != null}
 	 * POST: Construye una arista conectado a dos vertices existentes y 
 	 * se le asigna el peso por defecto 1
 	 * 
