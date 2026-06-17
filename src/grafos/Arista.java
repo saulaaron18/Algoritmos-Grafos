@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Saúl Aarón
  * @version 1.0
  */
-public class Arista {
+public class Arista implements Comparable<Arista>{
 	private int peso;	//Peso de la arista
 	private final Vertice v0; //Vertice inicial
 	private final Vertice vf; //Vertice final
@@ -104,4 +104,9 @@ public class Arista {
 	public int hashCode() {
 		return Objects.hash(v0, vf);
 	}
+
+    @Override
+    public int compareTo(Arista o) {
+        return this.peso - o.peso;
+    }
 }

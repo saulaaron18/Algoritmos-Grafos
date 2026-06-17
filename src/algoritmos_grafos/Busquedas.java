@@ -5,6 +5,18 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 
+/**
+ * Clase cuyos servicios son la creación de arboles de busquedas
+ * (BEA,BEP / DFS,BFS) con distinta referencia.
+ * 
+ * La complejidad de ambas se resume en:
+ * Time: O(V+E)
+ * Space: O(V)
+ * 
+ * 
+ * @author Saúl Aarón
+ * @version 1.0
+ */
 public final class Busquedas {
 	/**
 	 * PRE: la raiz pertenece al grafo
@@ -15,8 +27,9 @@ public final class Busquedas {
 	 * @throws IllegalArgumentException
 	 */
 	public static Digrafo busquedaEnProfundidad(String nombreRaiz, IGrafo grafo) throws IllegalArgumentException {
-		if(grafo.getVertex(nombreRaiz) == null){
-			throw new IllegalArgumentException("El nombre del vertice de comienzo (raíz) " + nombreRaiz + "no pertenece al grafo");
+		if (grafo.getVertex(nombreRaiz) == null) {
+			throw new IllegalArgumentException(
+					"El nombre del vertice de comienzo (raíz) " + nombreRaiz + "no pertenece al grafo");
 		}
 
 		Digrafo arbolEnProfundidad = new Digrafo();
@@ -69,9 +82,10 @@ public final class Busquedas {
 	 * @return arbol de busqueda en anchura a partir de la raíz
 	 * @throws IllegalArgumentException
 	 */
-	public static Digrafo busquedaEnAnchura(String nombreRaiz, IGrafo grafo) throws IllegalArgumentException{
-		if(grafo.getVertex(nombreRaiz) == null){
-			throw new IllegalArgumentException("El nombre del vertice de comienzo (raíz) " + nombreRaiz + "no pertenece al grafo");
+	public static Digrafo busquedaEnAnchura(String nombreRaiz, IGrafo grafo) throws IllegalArgumentException {
+		if (grafo.getVertex(nombreRaiz) == null) {
+			throw new IllegalArgumentException(
+					"El nombre del vertice de comienzo (raíz) " + nombreRaiz + "no pertenece al grafo");
 		}
 
 		Digrafo arbolDeBusqueda = new Digrafo();
