@@ -14,19 +14,24 @@ import java.util.PriorityQueue;
  * 
  * 
  * @author Saúl Aarón
- * @version 1.0
+ * @version 1.1
  */
 public final class ArbolGeneradorMinimo {
 
 	/**
-	 * PRE: el grafo es conexo y no dirigido
+	 * PRE: el grafo debe ser conexo y no nulo.
 	 * 
 	 * @param grafo
 	 * @param nombreRaiz
-	 * @return
+	 * @return objeto de clase Grafo de pesos minimos
 	 */
 	public static Grafo Prim(Grafo grafo, String nombreRaiz) {
 		Grafo arbolGeneradorMinimo = new Grafo();
+
+		if (grafo == null) {
+			throw new IllegalArgumentException(
+					"El grafo es nulo. Inserte un grafo no nulo.");
+		}
 
 		if (Busquedas.busquedaEnProfundidad(nombreRaiz, grafo).numOfVertexs() != grafo.numOfVertexs()) {
 			throw new IllegalArgumentException(
