@@ -1,4 +1,5 @@
 package grafos;
+
 import java.util.Objects;
 
 /**
@@ -8,34 +9,34 @@ import java.util.Objects;
  * @author Saúl Aarón
  * @version 1.0
  */
-public class Arista implements Comparable<Arista>{
-	private int peso;	//Peso de la arista
-	private final Vertice v0; //Vertice inicial
-	private final Vertice vf; //Vertice final
-	
+public class Arista implements Comparable<Arista> {
+	private int peso; // Peso de la arista
+	private final Vertice v0; // Vertice inicial
+	private final Vertice vf; // Vertice final
+
 	/**
 	 * PRE: {@code v0 != null && !v0.isEmpty() && vf != null && !vf.isEmpty()}
-	 * POST: Construye una arista conectado a dos vertices existentes y 
+	 * POST: Construye una arista conectado a dos vertices existentes y
 	 * se le asigna un peso
 	 * 
-	 * @param 	v0 vertice de origen
-	 * @param 	vf vertice destino
-	 * @param 	peso o magnitud de la arista
+	 * @param v0   vertice de origen
+	 * @param vf   vertice destino
+	 * @param peso o magnitud de la arista
 	 * @throws IllegalArgumentException
 	 */
-	public Arista(Vertice v0, Vertice vf,int peso) throws IllegalArgumentException{
-		if(peso==0) {
+	public Arista(Vertice v0, Vertice vf, int peso) throws IllegalArgumentException {
+		if (peso == 0) {
 			throw new IllegalArgumentException("El peso de la arista no puede ser 0");
 		}
-		
+
 		this.peso = peso;
 		this.v0 = v0;
 		this.vf = vf;
 	}
-	
+
 	/**
 	 * PRE: {@code v0 != null && vf != null}
-	 * POST: Construye una arista conectado a dos vertices existentes y 
+	 * POST: Construye una arista conectado a dos vertices existentes y
 	 * se le asigna el peso por defecto 1
 	 * 
 	 * @param v0
@@ -46,67 +47,68 @@ public class Arista implements Comparable<Arista>{
 		this.v0 = v0;
 		this.vf = vf;
 	}
-	
+
 	/**
 	 * 
-	 * @return	peso
+	 * @return peso
 	 */
 	public int getPeso() {
 		return peso;
 	}
-	
+
 	/**
 	 * 
-	 * @return	vertice de origen
+	 * @return vertice de origen
 	 */
 	public Vertice getV0() {
 		return v0;
 	}
+
 	/**
 	 * 
-	 * @return	vertice de destino
+	 * @return vertice de destino
 	 */
 	public Vertice getVf() {
 		return vf;
 	}
-	
+
 	public void setPeso(int nuevoPeso) {
 		this.peso = nuevoPeso;
 	}
-	
+
 	/**
 	 * 
 	 * @param nombreVertice
-	 * @return	true si el nombre del vertice introducido coincide 
-	 * con uno de los vertices de la arista
+	 * @return true si el nombre del vertice introducido coincide
+	 *         con uno de los vertices de la arista
 	 */
 	public boolean contieneVertice(String nombreVertice) {
 		return v0.getNombre().equals(nombreVertice) || vf.getNombre().equals(nombreVertice);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "(" + v0 + ", " + vf + ", " + peso + ")";
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Arista)) {
+		if (!(obj instanceof Arista)) {
 			return false;
 		}
-		
+
 		Arista arista = (Arista) obj;
-		
+
 		return v0.equals(arista.v0) && vf.equals(arista.vf);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(v0, vf);
 	}
 
-    @Override
-    public int compareTo(Arista o) {
-        return this.peso - o.peso;
-    }
+	@Override
+	public int compareTo(Arista o) {
+		return this.peso - o.peso;
+	}
 }

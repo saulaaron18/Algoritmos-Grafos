@@ -3,6 +3,7 @@ package algoritmos_grafos;
 import grafos.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -147,12 +148,12 @@ public final class CaminosMinimos {
 
             AristaDistancia o = (AristaDistancia) obj;
 
-            return v0.equals(o.v0) && vf.equals(o.vf);
+            return vf.equals(o.vf);
         }
 
         @Override
         public int hashCode() {
-            return super.hashCode();
+            return Objects.hash(vf);
         }
 
     }

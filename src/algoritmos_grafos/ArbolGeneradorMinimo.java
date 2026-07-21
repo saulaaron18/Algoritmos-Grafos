@@ -45,15 +45,15 @@ public final class ArbolGeneradorMinimo {
 		Vertice vertice = grafo.getVertex(nombreRaiz);
 		arbolGeneradorMinimo.addVertex(nombreRaiz);
 
-		// E = V-1 Propiedad arboles
-		while (arbolGeneradorMinimo.numOfEdges() != numOfVertexsGrafo - 1) {
+		// número vertices arbol == número de vertices grafo original
+		while (arbolGeneradorMinimo.numOfVertexs() != numOfVertexsGrafo) {
 			HashSet<Vertice> verticesArbol = arbolGeneradorMinimo.getVertexs();
 
 			// Tomamos aquellas aristas cuyo vertice final no pertenezca a
 			// los vertices del Árbol.
 			// Logramos tomar aristas que no producen ciclos y aristas repetidas.
 			// Aprovechamos que sabemos que V0 es vertice.
-			for (Arista arista : grafo.getEdgesOfVertex(vertice.getNombre())) {
+			for (Arista arista : grafo.getEdgesOfVertex(vertice)) {
 				if (!verticesArbol.contains(arista.getVf())) {
 					aristasPrioridad.add(arista); // O(log E)
 				}
@@ -63,13 +63,13 @@ public final class ArbolGeneradorMinimo {
 			aristasPrioridad.removeIf(((arista) -> verticesArbol.contains(arista.getVf())));
 			Arista aristaMenorPeso = aristasPrioridad.poll(); // O(log E)
 
-			arbolGeneradorMinimo.addVertex(aristaMenorPeso.getVf().getNombre());
-			arbolGeneradorMinimo.addEdge(
-					aristaMenorPeso.getV0().getNombre(),
-					aristaMenorPeso.getVf().getNombre(),
-					aristaMenorPeso.getPeso());
-
 			vertice = aristaMenorPeso.getVf();
+
+			arbolGeneradorMinimo.addVertex(vertice);
+			arbolGeneradorMinimo.addEdge(
+					aristaMenorPeso.getV0(),
+					vertice,
+					aristaMenorPeso.getPeso());
 		}
 
 		return arbolGeneradorMinimo;

@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Interfaz Grafo que contiene los métodos que realiza un grafo o digrafo
  * 
  * @author Saúl Aarón
- * @version 1.0
+ * @version 1.1
  */
 public interface IGrafo {
 
@@ -22,6 +22,16 @@ public interface IGrafo {
 	public boolean addVertex(String nombreVertice) throws IllegalArgumentException;
 
 	/**
+	 * PRE: {@code vertice != null}
+	 * POST: Crea y añade un vertice a la lista de vertices
+	 * 
+	 * @param vertice
+	 * @return true si se añadió correctamente
+	 * @throws IllegalArgumentException
+	 */
+	public boolean addVertex(Vertice vertice) throws IllegalArgumentException;
+
+	/**
 	 * PRE: {@code nombreVertice != null && !nombreVertice.isEmpty()}
 	 * POST: Elimina las aristas conectadas al vertice y el vertice mismo
 	 * 
@@ -32,11 +42,12 @@ public interface IGrafo {
 	public boolean removeVertex(String nombreVertice) throws IllegalArgumentException;
 
 	/**
-	 * Crea la arista que conecta el vertice de origen al de destino.
+	 * Crea la arista ponderada que conecta el vertice de origen al de destino.
 	 * Puede ser dirigida a un sentido en un Digrafo o de ambos sentidos
 	 * en caso de un Grafo
 	 * 
-	 * PRE: {@code peso != 0 && !nombreOrigen.equals(nombreDestino) && nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 * PRE:
+	 * {@code peso != 0 && !nombreOrigen.equals(nombreDestino) && nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
 	 * 
 	 * @param nombreOrigen  nombre del vertice de origen
 	 * @param nombreDestino nombre del vertice de destino
@@ -45,12 +56,29 @@ public interface IGrafo {
 	 * @throws IllegalArgumentException
 	 */
 	public boolean addEdge(String nombreOrigen, String nombreDestino, int peso) throws IllegalArgumentException;
-	
+
+	/**
+	 * Crea la arista ponderada que conecta el vertice de origen al de destino.
+	 * Puede ser dirigida a un sentido en un Digrafo o de ambos sentidos
+	 * en caso de un Grafo
+	 * 
+	 * PRE:
+	 * {@code peso != 0 && !nombreOrigen.equals(nombreDestino) && nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 * 
+	 * @param origen  nombre del vertice de origen
+	 * @param destino nombre del vertice de destino
+	 * @param peso    peso de la arista
+	 * @return true si se añadio correctamente
+	 * @throws IllegalArgumentException
+	 */
+	public boolean addEdge(Vertice origen, Vertice destino, int peso) throws IllegalArgumentException;
+
 	/**
 	 * Crea la arista que conecta el vertice de origen al de destino.
 	 * Puede ser dirigida a un sentido en un Digrafo o de ambos sentidos
 	 * en caso de un Grafo
-	 * PRE: {@code !nombreOrigen.equals(nombreDestino) && nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 * PRE:
+	 * {@code !nombreOrigen.equals(nombreDestino) && nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
 	 * 
 	 * @param nombreOrigen  nombre del vertice de origen
 	 * @param nombreDestino nombre del vertice de destino
@@ -60,7 +88,22 @@ public interface IGrafo {
 	public boolean addEdge(String nombreOrigen, String nombreDestino) throws IllegalArgumentException;
 
 	/**
-	 * PRE: {@code nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 * Crea la arista que conecta el vertice de origen al de destino.
+	 * Puede ser dirigida a un sentido en un Digrafo o de ambos sentidos
+	 * en caso de un Grafo
+	 * PRE:
+	 * {@code !nombreOrigen.equals(nombreDestino) && nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 * 
+	 * @param origen  vertice de origen
+	 * @param destino vertice de destino
+	 * @return true si se añadio correctamente
+	 * @throws IllegalArgumentException
+	 */
+	public boolean addEdge(Vertice origen, Vertice destino) throws IllegalArgumentException;
+
+	/**
+	 * PRE:
+	 * {@code nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
 	 *
 	 * @param nombreOrigen  nombre del vertice de origen
 	 * @param nombreDestino nombre del vertice destino
@@ -68,6 +111,17 @@ public interface IGrafo {
 	 * @throws IllegalArgumentException
 	 */
 	public boolean removeEdge(String nombreOrigen, String nombreDestino) throws IllegalArgumentException;
+
+	/**
+	 * PRE:
+	 * {@code nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 *
+	 * @param origen  vertice de origen
+	 * @param destino vertice destino
+	 * @return true si se ha removido correctamente
+	 * @throws IllegalArgumentException
+	 */
+	public boolean removeEdge(Vertice origen, Vertice destino) throws IllegalArgumentException;
 
 	/**
 	 * 
@@ -91,7 +145,8 @@ public interface IGrafo {
 	public Vertice getVertex(String nombreVertice) throws IllegalArgumentException;
 
 	/**
-	 * PRE: {@code nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
+	 * PRE:
+	 * {@code nombreOrigen != null && !nombreOrigen.isEmpty() && nombreDestino != null && !nombreDestino.isEmpty()}
 	 *
 	 * @param nombreOrigen  nombre del vertice origen
 	 * @param nombreDestino nombre del vertice destino
@@ -108,6 +163,15 @@ public interface IGrafo {
 	 * @throws IllegalArgumentException
 	 */
 	public HashSet<Arista> getEdgesOfVertex(String nombreVertice) throws IllegalArgumentException;
+
+	/**
+	 * PRE: {@code vertice != null && vertices.contains(vertice)}
+	 *
+	 * @param vertice
+	 * @return aristas del vertice
+	 * @throws IllegalArgumentException
+	 */
+	public HashSet<Arista> getEdgesOfVertex(Vertice vertice) throws IllegalArgumentException;
 
 	/**
 	 * 

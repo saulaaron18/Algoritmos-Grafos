@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Digrafo simple, que no acepta bucles y aristas multiples de mismo sentido
  * 
  * @author Saúl Aarón
- * @version 1.0
+ * @version 1.1
  */
 public class Digrafo implements IGrafo {
 	private final HashSet<Vertice> vertices;
@@ -15,7 +15,7 @@ public class Digrafo implements IGrafo {
 	private final HashMap<Vertice, HashSet<Arista>> verticesAdyacentes;
 
 	/**
-	 * Constructor de la clase Digrafo que inicializa los atributos de un Grafo: 
+	 * Constructor de la clase Digrafo que inicializa los atributos de un Grafo:
 	 * vertices, aristas, vertices adyacentes.
 	 */
 	public Digrafo() {
@@ -30,6 +30,16 @@ public class Digrafo implements IGrafo {
 
 		verticesAdyacentes.put(verticeNuevo, new HashSet<>());
 		return vertices.add(verticeNuevo);
+	}
+
+	@Override
+	public boolean addVertex(Vertice vertice) throws IllegalArgumentException {
+		if (vertice == null) {
+			return false;
+		}
+
+		verticesAdyacentes.put(vertice, new HashSet<>());
+		return vertices.add(vertice);
 	}
 
 	@Override
@@ -77,10 +87,28 @@ public class Digrafo implements IGrafo {
 		return aristas.add(aristaNueva);
 
 	}
-	
+
+	@Override
+	public boolean addEdge(Vertice origen, Vertice destino, int peso) throws IllegalArgumentException {
+		if (origen == null
+				|| !vertices.contains(origen) || !vertices.contains(destino) || origen.equals(destino)) {
+			return false;
+		}
+
+		Arista aristaNueva = new Arista(origen, destino, peso);
+
+		verticesAdyacentes.get(origen).add(aristaNueva);
+		return aristas.add(aristaNueva);
+	}
+
 	@Override
 	public boolean addEdge(String nombreOrigen, String nombreDestino) throws IllegalArgumentException {
 		return addEdge(nombreOrigen, nombreDestino, 1);
+	}
+
+	@Override
+	public boolean addEdge(Vertice origen, Vertice destino) throws IllegalArgumentException {
+		return addEdge(origen, destino, 1);
 	}
 
 	@Override
@@ -88,6 +116,19 @@ public class Digrafo implements IGrafo {
 		Vertice origen = getVertex(nombreOrigen);
 		Vertice destino = getVertex(nombreDestino);
 
+		// Comprobamos si son nulos
+		if (origen == null || destino == null) {
+			return false;
+		}
+		Arista aristaEliminar = new Arista(origen, destino);
+
+		verticesAdyacentes.get(origen).remove(aristaEliminar); // Eliminamos de verticesAdyacentes
+
+		return aristas.remove(aristaEliminar); // Eliminamos de aristas
+	}
+
+	@Override
+	public boolean removeEdge(Vertice origen, Vertice destino) throws IllegalArgumentException {
 		// Comprobamos si son nulos
 		if (origen == null || destino == null) {
 			return false;
@@ -166,7 +207,7 @@ public class Digrafo implements IGrafo {
 	}
 
 	@Override
-	public Vertice getVertex(String nombreVertice) throws IllegalArgumentException{
+	public Vertice getVertex(String nombreVertice) throws IllegalArgumentException {
 		Vertice verticeBusqueda = new Vertice(nombreVertice);
 
 		return (vertices.contains(verticeBusqueda)) ? verticeBusqueda : null;
@@ -181,6 +222,11 @@ public class Digrafo implements IGrafo {
 	public HashSet<Arista> getEdgesOfVertex(String nombreVertice) throws IllegalArgumentException {
 		Vertice vertice = getVertex(nombreVertice);
 		return (vertice != null) ? verticesAdyacentes.get(vertice) : null;
+	}
+
+	@Override
+	public HashSet<Arista> getEdgesOfVertex(Vertice vertice) throws IllegalArgumentException {
+		return (vertices.contains(vertice)) ? verticesAdyacentes.get(vertice) : null;
 	}
 
 	@Override
@@ -219,4 +265,5 @@ public class Digrafo implements IGrafo {
 	public int numOfEdges() {
 		return getEdges().size();
 	}
+
 }
