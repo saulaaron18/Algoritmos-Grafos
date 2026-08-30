@@ -15,7 +15,7 @@ This project has no build script — compile and run through Eclipse or `javac`/
 javac -cp "bin;path\to\junit-4.jar;path\to\hamcrest-core.jar" -d bin (Get-ChildItem src -Recurse -Filter *.java | % { $_.FullName })
 
 # Run console menu
-java -cp bin Menu
+java -cp bin menus.MenuConsolaSimple
 
 # Run a specific manual test main
 java -cp bin testing.TestMainGrafo
@@ -25,7 +25,7 @@ java -cp bin testing.TestMainDigrafo
 java -cp "bin;path\to\junit-4.jar;path\to\hamcrest-core.jar" org.junit.runner.JUnitCore testing.TestGrafo
 ```
 
-In practice, use Eclipse: **Run As → JUnit Test** for `TestGrafo`, and **Run As → Java Application** for the `Main*` classes and `Menu`.
+In practice, use Eclipse: **Run As → JUnit Test** for `TestGrafo`, and **Run As → Java Application** for the `Main*` classes and `MenuConsolaSimple`.
 
 ## Architecture
 
@@ -42,7 +42,12 @@ Algorithm layer lives in `src/algoritmos_grafos/`:
 - `Busquedas` — abstract class with static methods `busquedaEnProfundidad` (DFS) and `busquedaEnAnchura` (BFS). Both return a `Digrafo` representing the search tree.
 - `ArbolGeneradorMinimo` — abstract class with a stub `Boruvka(Digrafo)` (not yet implemented).
 
-Entry point: `src/Menu.java`.
+Menu layer lives in `src/menus/` (replaces the old `src/Menu.java`, which was deleted):
+
+- `MenuConsolaSimple` — entry point (`main`). Console menu loop to create/load a `Grafo`/`Digrafo`, add/remove vertices and edges, print the graph, and save/load it to/from a file via `ArchivoGrafo`.
+- `ArchivoGrafo` — abstract utility class to save (`guardar`) and load (`cargar`) an `IGrafo` as plain text under `src/saves/`, preserving its type (`GRAFO`/`DIGRAFO`), vertices, and edges. See the class Javadoc for the file format.
+
+Sample saved graphs live in `src/saves/` (e.g. `grafo-petersen.txt`).
 
 Manual smoke tests: `src/testing/TestMainGrafo.java` and `TestMainDigrafo.java` (plain `main` methods).  
 JUnit 4 tests: `src/testing/TestGrafo.java`.
