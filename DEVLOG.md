@@ -27,7 +27,7 @@
   reduciendo a O(n²)
 
 ### ⏭️ Next steps / Próximos pasos
-- [ ] Diseñar menú interactivo por consola
+- [ X ] Diseñar menú interactivo por consola
 
 ---
 
@@ -53,9 +53,10 @@
   del Scanner
 
 ### ⏭️ Next steps / Próximos pasos
-- [ ] Implementar BEP y BEA
-- [ ] Completar e implementar algoritmo de Dijkstra
-- [ ] Exportar/importar CSV
+- [ ] Implementar algoritmos (Dijkstra, Prim, Busquedas)
+- ~~[ ] Exportar/importar CSV~~ 
+- [ X ] Sistema guardado con texto
+- [ ] Sistema de guardado con JSON
 
 ---
 
@@ -71,10 +72,12 @@
 ### 🧠 Key learnings / Aprendizajes clave
 - Identificar que TADs usar (pila o cola) o que estructura de datos
   para cada algoritmo para facilitar la busqueda
+- Aprender el funcionamiento de un arbol binario
 
 ### 🐛 Challenges / Dificultades
 - Estructurar el proceso algoritmico a partir de mi código
+- Combinar las distintas estructuras para obtener un óptimo resultado
 
 ### ⏭️ Next steps / Próximos pasos
-- [ ] Implementar algoritmo de Prim
-- [ ] Implementar algoritmo de Dijkstra
+- [ X ] Implementar algoritmo de Prim
+- [ X ] Implementar algoritmo de Dijkstra
