@@ -1,5 +1,6 @@
 package menus;
 
+import algoritmos_grafos.*;
 import grafos.*;
 import java.io.IOException;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class MenuConsolaSimple {
 			System.out.println("Escriba el numero: ");
 			seleccion = sc.nextLine().trim().charAt(0);
 
-			if (seleccion >= '0' && seleccion <= '5') {
+			if (seleccion >= '0' && seleccion <= '6') {
 				accionSeleccionMenu(seleccion, grafo);
 			}
 
@@ -29,8 +30,9 @@ public class MenuConsolaSimple {
 		System.out.println("1. Añadir o eliminar nodo/vertice");
 		System.out.println("2. Añadir o eliminar arista");
 		System.out.println("3. Mostrar Grafo (matriz de adyaciencias por vertices)");
-		System.out.println("4. Guardar Grafo");
-		System.out.println("5. Cargar Grafo");
+		System.out.println("4. Algoritmos");
+		System.out.println("5. Guardar Grafo");
+		System.out.println("6. Cargar Grafo");
 
 		System.out.println("\n0. Salir\n");
 
@@ -52,10 +54,13 @@ public class MenuConsolaSimple {
 				menuDeSeleccion(grafo);
 				break;
 			case '4':
+				menuDeAlgoritmos(grafo);
+				break;
+			case '5':
 				guardarGrafo(grafo);
 				menuDeSeleccion(grafo);
 				break;
-			case '5':
+			case '6':
 				cargarGrafo();
 				break;
 			default:
@@ -276,6 +281,152 @@ public class MenuConsolaSimple {
 
 			complete = grafo.removeEdge(nombreVerticeOrigen, nombreVerticeDestino);
 		} while (!complete);
+	}
+
+	private static void menuDeAlgoritmos(IGrafo grafo) {
+		char seleccion;
+		do {
+			interfazGraficaMenuDeAlgoritmos();
+
+			System.out.println("Escriba el numero: ");
+			seleccion = sc.nextLine().trim().charAt(0);
+
+			if (seleccion >= '0' && seleccion <= '3') {
+				accionSeleccionMenuDeAlgoritmos(seleccion, grafo);
+			}
+		} while (seleccion >= '1' && seleccion <= '3');
+
+	}
+
+	private static void interfazGraficaMenuDeAlgoritmos() {
+		System.out.println("¿Qué desea hacer?");
+		System.out.println("1. Busqueda (BEA,BEP / DFS,BFS)");
+		System.out.println("2. Arbol generador mínimo");
+		System.out.println("3. Caminos mínimos");
+
+		System.out.println("\n0. Volver atras\n");
+	}
+
+	private static void accionSeleccionMenuDeAlgoritmos(char seleccion, IGrafo grafo) {
+		switch (seleccion) {
+			case '0':
+				System.out.println("Saliendo al Menú.");
+
+				break;
+
+			case '1':
+				menuBusqueda(grafo);
+				break;
+
+			case '2':
+				arbolGeneradorMinimo(grafo);
+				break;
+
+			case '3':
+				caminosMinimos(grafo);
+				break;
+
+			default:
+				System.out.println("ERROR");
+		}
+	}
+
+	private static void menuBusqueda(IGrafo grafo) {
+		char seleccion;
+		do {
+			interfazGraficaMenuBusqueda();
+
+			System.out.println("Escriba el numero: ");
+			seleccion = sc.nextLine().trim().charAt(0);
+
+			if (seleccion >= '0' && seleccion <= '2') {
+				accionSeleccionMenuBusqueda(seleccion, grafo);
+			}
+		} while (seleccion >= '1' && seleccion <= '2');
+	}
+
+	private static void interfazGraficaMenuBusqueda() {
+		System.out.println("¿Qué desea hacer?");
+		System.out.println("1. Busqueda en Profundidad (DFS)");
+		System.out.println("2. Busqueda en Anchura (BFS)");
+
+		System.out.println("\n0. Volver atras\n");
+	}
+
+	private static void accionSeleccionMenuBusqueda(char seleccion, IGrafo grafo) {
+		switch (seleccion) {
+			case '0':
+				System.out.println("Saliendo al Menú.");
+
+				break;
+
+			case '1':
+				busquedaEnProfundidad(grafo);
+
+				break;
+
+			case '2':
+				busquedaEnAnchura(grafo);
+
+				break;
+
+			default:
+				System.out.println("ERROR");
+		}
+	}
+
+	private static void busquedaEnProfundidad(IGrafo grafo) {
+		System.out.print("Indique el nombre del vertice raiz: ");
+		String nombreRaiz = sc.nextLine().trim();
+
+		try {
+			Digrafo arbol = Busquedas.busquedaEnProfundidad(nombreRaiz, grafo);
+			System.out.println(arbol);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	private static void busquedaEnAnchura(IGrafo grafo) {
+		System.out.print("Indique el nombre del vertice raiz: ");
+		String nombreRaiz = sc.nextLine().trim();
+
+		try {
+			Digrafo arbol = Busquedas.busquedaEnAnchura(nombreRaiz, grafo);
+			System.out.println(arbol);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	private static void arbolGeneradorMinimo(IGrafo grafo) {
+		if (!(grafo instanceof Grafo)) {
+			System.out.println("El árbol generador mínimo solo está disponible para Grafos no dirigidos.");
+			return;
+		}
+
+		System.out.print("Indique el nombre del vertice raiz: ");
+		String nombreRaiz = sc.nextLine().trim();
+
+		try {
+			Grafo arbol = ArbolGeneradorMinimo.Prim((Grafo) grafo, nombreRaiz);
+			System.out.println(arbol);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	private static void caminosMinimos(IGrafo grafo) {
+		System.out.print("Indique el nombre del vertice raiz: ");
+		String nombreRaiz = sc.nextLine().trim();
+
+		try {
+			CaminosMinimos caminosMinimos = new CaminosMinimos();
+			IGrafo arbol = caminosMinimos.Dijkstra(grafo, nombreRaiz);
+			System.out.println(arbol);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 
 	private static IGrafo crearGrafo() {

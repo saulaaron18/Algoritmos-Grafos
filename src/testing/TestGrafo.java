@@ -1,8 +1,8 @@
 package testing;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import grafos.Arista;
 import grafos.Grafo;
 
@@ -10,7 +10,7 @@ public class TestGrafo {
 
     private Grafo grafo;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         grafo = new Grafo();
     }
@@ -227,7 +227,7 @@ public class TestGrafo {
     @Test
     public void addEdge_selfLoop() {
         grafo.addVertex("A");
-        //Grafo doesn't accept loops
+        // Grafo doesn't accept loops
         assertFalse(grafo.addEdge("A", "A"));
         assertEquals(0, grafo.numOfEdges());
     }

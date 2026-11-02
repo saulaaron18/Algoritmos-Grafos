@@ -53,7 +53,7 @@
   del Scanner
 
 ### ⏭️ Next steps / Próximos pasos
-- [ ] Implementar algoritmos (Dijkstra, Prim, Busquedas)
+- [ X ] Implementar algoritmos (Dijkstra, Prim, Busquedas)
 - ~~[ ] Exportar/importar CSV~~ 
 - [ X ] Sistema guardado con texto
 - [ ] Sistema de guardado con JSON
