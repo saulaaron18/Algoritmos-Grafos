@@ -57,6 +57,7 @@
 - ~~[ ] Exportar/importar CSV~~ 
 - [ X ] Sistema guardado con texto
 - [ ] Sistema de guardado con JSON
+- [ ] Mejorar reparto de tareas del menú
 
 ---
 
